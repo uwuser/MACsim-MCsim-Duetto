@@ -1,0 +1,358 @@
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 0
+average execution cycle: 2008
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+109288    145286    0         5580255        1559742        OS_DCACHE_BEGIN          DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109289    145287    0         5580255        1559742        OS_EXEC_BEGIN            MISC                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109290    145288    0         5580255        1559742        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109290    145289    0         5580255        1559742        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109290    145290    0         5580255        1559742        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109291    145291    0         5580255        1559742        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109292    145292    0         5580258        1559739        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109293    145293    0         5580258        1559739        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109294    145294    0         5580258        1559739        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109295    145295    0         5580258        1559739        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109296    145296    0         5580258        1559739        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109297    145297    0         5580258        1559739        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109298    145298    0         5580258        1559739        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109299    145299    0         5580258        1559739        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109300    145300    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109301    145301    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109302    145302    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109303    145303    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109304    145304    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109305    145305    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109306    145306    0         5580261        1559736        OS_FETCHED               DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109307    145307    0         5580261        1559736        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109308    145308    0         5580264        1559733        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109309    145309    0         5580264        1559733        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109310    145310    0         5580264        1559733        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109311    145311    0         5580264        1559733        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109312    145312    0         5580264        1559733        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109313    145313    0         5580264        1559733        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109314    145314    0         5580264        1559733        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109315    145315    0         5580264        1559733        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109316    145316    0         5580267        1559730        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109317    145317    0         5580267        1559730        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109318    145318    0         5580267        1559730        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109319    145319    0         5580267        1559730        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109320    145320    0         5580267        1559730        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109321    145321    0         5580267        1559730        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109322    145322    0         5580267        1559730        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109323    145323    0         5580267        1559730        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109324    145324    0         5580270        1559727        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109324    145325    0         5580270        1559727        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109325    145326    0         5580270        1559727        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109325    145327    0         5580270        1559727        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109326    145328    0         5580270        1559727        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109326    145329    0         5580270        1559727        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109327    145330    0         5580270        1559727        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109327    145331    0         5580270        1559727        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109328    145332    0         5580273        1559724        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109328    145333    0         5580273        1559724        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109329    145334    0         5580273        1559724        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109329    145335    0         5580273        1559724        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109330    145336    0         5580273        1559724        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109330    145337    0         5580273        1559724        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109331    145338    0         5580273        1559724        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109332    145339    0         5580273        1559724        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109333    145340    0         5580276        1559721        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109333    145341    0         5580276        1559721        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109334    145342    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109335    145343    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109336    145344    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109337    145345    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109338    145346    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109339    145347    0         5580276        1559721        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109340    145348    0         5580279        1559718        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109341    145349    0         5580279        1559718        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109342    145350    0         5580279        1559718        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109342    145351    0         5580279        1559718        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109343    145352    0         5580279        1559718        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109344    145353    0         5580279        1559718        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109345    145354    0         5580279        1559718        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109346    145355    0         5580279        1559718        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109347    145356    0         5580282        1559715        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109348    145357    0         5580282        1559715        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109349    145358    0         5580282        1559715        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109350    145359    0         5580282        1559715        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109351    145360    0         5580282        1559715        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109352    145361    0         5580282        1559715        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109353    145362    0         5580282        1559715        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109354    145363    0         5580282        1559715        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109355    145364    0         5580285        1559712        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109356    145365    0         5580285        1559712        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109356    145366    0         5580285        1559712        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109357    145367    0         5580285        1559712        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109358    145368    0         5580285        1559712        OS_SCHEDULED             BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109358    145369    0         5580285        1559712        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109359    145370    0         5580285        1559712        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109359    145371    0         5580285        1559712        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109360    145372    0         5580288        1559709        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109361    145373    0         5580288        1559709        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109362    145374    0         5580288        1559709        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109362    145375    0         5580288        1559709        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109363    145376    0         5580288        1559709        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109364    145377    0         5580288        1559709        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109365    145378    0         5580288        1559709        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109365    145379    0         5580288        1559709        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109366    145380    0         5580291        1559706        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109367    145381    0         5580291        1559706        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109368    145382    0         5580291        1559706        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109369    145383    0         5580291        1559706        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109370    145384    0         5580291        1559706        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109370    145385    0         5580291        1559706        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109370    145386    0         5580291        1559706        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109371    145387    0         5580291        1559706        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109372    145388    0         5580294        1559703        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109373    145389    0         5580294        1559703        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109374    145390    0         5580294        1559703        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109375    145391    0         5580294        1559703        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109376    145392    0         5580294        1559703        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109377    145393    0         5580294        1559703        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109377    145394    0         5580294        1559703        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109377    145395    0         5580294        1559703        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109378    145396    0         5580297        1559700        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109379    145397    0         5580297        1559700        OS_SCHEDULED             BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109379    145398    0         5580297        1559700        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109380    145399    0         5580297        1559700        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109380    145400    0         5580297        1559700        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109381    145401    0         5580297        1559700        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109382    145402    0         5580297        1559700        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109383    145403    0         5580297        1559700        OS_EXEC_BEGIN            CMOV                     UOP_CMOV            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109384    145404    0         5580300        1559697        OS_SCHEDULED             RET                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109384    145405    0         5580300        1559697        OS_EXEC_BEGIN            RET                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109384    145406    0         5580300        1559697        OS_EXEC_BEGIN            RET                      UOP_CF              NOT                 CF_RET              REG_DATA_DEP        0     0         
+109385    145407    0         5580300        1559697        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109386    145408    0         5580300        1559697        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109387    145409    0         5580300        1559697        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109387    145410    0         5580300        1559697        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109388    145411    0         5580300        1559697        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109389    145412    0         5580303        1559694        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109390    145413    0         5580303        1559694        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109391    145414    0         5580303        1559694        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109391    145415    0         5580303        1559694        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109392    145416    0         5580303        1559694        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109393    145417    0         5580303        1559694        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109394    145418    0         5580303        1559694        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109394    145419    0         5580303        1559694        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109394    145420    0         5580306        1559691        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109395    145421    0         5580306        1559691        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109396    145422    0         5580306        1559691        OS_SCHEDULED             BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109396    145423    0         5580306        1559691        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109397    145424    0         5580306        1559691        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109397    145425    0         5580306        1559691        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109398    145426    0         5580306        1559691        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109399    145427    0         5580306        1559691        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109400    145428    0         5590800        1549197        OS_EXEC_BEGIN            CMOV                     UOP_CMOV            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109401    145429    0         5590800        1549197        OS_SCHEDULED             RET                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109401    145430    0         5590800        1549197        OS_EXEC_BEGIN            RET                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109401    145431    0         5590800        1549197        OS_EXEC_BEGIN            RET                      UOP_CF              NOT                 CF_RET              REG_DATA_DEP        0     0         
+109402    145432    0         5590800        1549197        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109403    145433    0         5590800        1549197        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109403    145434    0         5590800        1549197        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109404    145435    0         5590800        1549197        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109405    145436    0         5590803        1549194        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109406    145437    0         5590803        1549194        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109406    145438    0         5590803        1549194        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109407    145439    0         5590803        1549194        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109408    145440    0         5590803        1549194        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109409    145441    0         5590803        1549194        OS_SCHEDULED             POP                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109409    145442    0         5590803        1549194        OS_EXEC_BEGIN            POP                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109410    145443    0         5590803        1549194        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109411    145444    0         5590806        1549191        OS_SCHEDULED             POP                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109411    145445    0         5590806        1549191        OS_EXEC_BEGIN            POP                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109412    145446    0         5590806        1549191        OS_SCHEDULED             RET                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109412    145447    0         5590806        1549191        OS_EXEC_BEGIN            RET                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109412    145448    0         5590806        1549191        OS_EXEC_BEGIN            RET                      UOP_CF              NOT                 CF_RET              REG_DATA_DEP        0     0         
+109413    145449    0         5590806        1549191        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109414    145450    0         5590806        1549191        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109415    145451    0         5590806        1549191        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109416    145452    0         5590809        1549188        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109417    145453    0         5590809        1549188        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109417    145454    0         5590809        1549188        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109418    145455    0         5590809        1549188        OS_EXEC_BEGIN            TR_NOP                   UOP_NOP             NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109419    145456    0         5590809        1549188        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109420    145457    0         5590809        1549188        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109421    145458    0         5590809        1549188        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109421    145459    0         5590809        1549188        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109422    145460    0         5590812        1549185        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109423    145461    0         5590812        1549185        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109424    145462    0         5590812        1549185        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109425    145463    0         5590812        1549185        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109426    145464    0         5590812        1549185        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109427    145465    0         5590812        1549185        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109428    145466    0         5590812        1549185        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109428    145467    0         5590812        1549185        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109429    145468    0         5590815        1549182        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109429    145469    0         5590815        1549182        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109430    145470    0         5590815        1549182        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109430    145471    0         5590815        1549182        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109431    145472    0         5590815        1549182        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109431    145473    0         5590815        1549182        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109432    145474    0         5590815        1549182        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109432    145475    0         5590815        1549182        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109433    145476    0         5590818        1549179        OS_SCHEDULED             LOGICAL                  UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109433    145477    0         5590818        1549179        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109434    145478    0         5590818        1549179        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109434    145479    0         5590818        1549179        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109435    145480    0         5590818        1549179        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109436    145481    0         5590818        1549179        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109437    145482    0         5590818        1549179        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109437    145483    0         5590818        1549179        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109438    145484    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109439    145485    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109440    145486    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109441    145487    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109442    145488    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109443    145489    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109444    145490    0         5590821        1549176        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109445    145491    0         5590821        1549176        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109446    145492    0         5590824        1549173        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109446    145493    0         5590824        1549173        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109447    145494    0         5590824        1549173        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109448    145495    0         5590824        1549173        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109449    145496    0         5590824        1549173        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109450    145497    0         5590824        1549173        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109451    145498    0         5590824        1549173        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109452    145499    0         5590824        1549173        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109453    145500    0         5590827        1549170        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109454    145501    0         5590827        1549170        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109455    145502    0         5590827        1549170        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109456    145503    0         5590827        1549170        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109457    145504    0         5590827        1549170        OS_EXEC_BEGIN            SHIFT                    UOP_SHIFT           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109458    145505    0         5590827        1549170        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109459    145506    0         5590827        1549170        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109460    145507    0         5590827        1549170        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109460    145508    0         5590830        1549167        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109461    145509    0         5590830        1549167        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109462    145510    0         5590830        1549167        OS_SCHEDULED             BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109462    145511    0         5590830        1549167        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109463    145512    0         5590830        1549167        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109463    145513    0         5590830        1549167        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109464    145514    0         5590830        1549167        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109465    145515    0         5590830        1549167        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109466    145516    0         5590833        1549164        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109466    145517    0         5590833        1549164        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109467    145518    0         5590833        1549164        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109468    145519    0         5590833        1549164        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109469    145520    0         5590833        1549164        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109469    145521    0         5590833        1549164        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109470    145522    0         5590833        1549164        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109471    145523    0         5590833        1549164        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109472    145524    0         5590836        1549161        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109473    145525    0         5590836        1549161        OS_SCHEDULED             DATAXFER                 UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109474    145526    0         5590836        1549161        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109474    145527    0         5590836        1549161        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109474    145528    0         5590836        1549161        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109475    145529    0         5590836        1549161        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109476    145530    0         5590836        1549161        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109477    145531    0         5590836        1549161        OS_SCHEDULED             PUSH                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109478    145532    0         5590839        1549158        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109479    145533    0         5590839        1549158        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109480    145534    0         5590839        1549158        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109481    145535    0         5590839        1549158        OS_EXEC_BEGIN            CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109481    145536    0         5590839        1549158        OS_SCHEDULED             CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109481    145537    0         5590839        1549158        OS_EXEC_BEGIN            CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109482    145538    0         5590839        1549158        OS_SCHEDULED             DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109483    145539    0         5590839        1549158        OS_SCHEDULED             BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109483    145540    0         5590842        1549155        OS_EXEC_BEGIN            BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109484    145541    0         5590842        1549155        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109484    145542    0         5590842        1549155        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109485    145543    0         5590842        1549155        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109486    145544    0         5590842        1549155        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109487    145545    0         5590842        1549155        OS_EXEC_BEGIN            CMOV                     UOP_CMOV            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109488    145546    0         5590842        1549155        OS_SCHEDULED             RET                      UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109488    145547    0         5590842        1549155        OS_EXEC_BEGIN            RET                      UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109488    145548    0         5590845        1549152        OS_EXEC_BEGIN            RET                      UOP_CF              NOT                 CF_RET              REG_DATA_DEP        0     0         
+109489    145549    0         5590845        1549152        OS_EXEC_BEGIN            LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109490    145550    0         5590845        1549152        OS_EXEC_BEGIN            DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109491    145551    0         5590845        1549152        OS_EXEC_BEGIN            COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109491    145552    0         5590845        1549152        OS_EXEC_BEGIN            COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109492    145553    0         5590845        1549152        OS_FETCHED               DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109493    145554    0         5590845        1549152        OS_FETCHED               LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109494    145555    0         5590845        1549152        OS_FETCHED               LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109495    145556    0         5590848        1549149        OS_FETCHED               COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109495    145557    0         5590848        1549149        OS_FETCHED               COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109496    145558    0         5590848        1549149        OS_FETCHED               DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109497    145559    0         5590848        1549149        OS_FETCHED               DATAXFER                 UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109498    145560    0         5590848        1549149        OS_FETCHED               CALL                     UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109498    145561    0         5590848        1549149        OS_FETCHED               CALL                     UOP_IMEM            ST                  NOT_CF              REG_DATA_DEP        0     0         
+109498    145562    0         5590848        1549149        OS_FETCHED               CALL                     UOP_CF              NOT                 CF_CALL             REG_DATA_DEP        0     0         
+109499    145563    0         5590848        1549149        OS_FETCHED               DATAXFER                 UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109500    145564    0         5590851        1549146        OS_FETCHED               BINARY                   UOP_IMEM            LD                  NOT_CF              REG_DATA_DEP        0     0         
+109500    145565    0         5590851        1549146        OS_FETCHED               BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109501    145566    0         5590851        1549146        OS_FETCHED               COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109501    145567    0         5590851        1549146        OS_FETCHED               COND_BR                  UOP_CF              NOT                 CF_CBR              REG_DATA_DEP        0     0         
+109502    145568    0         5590851        1549146        OS_FETCHED               BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109503    145569    0         5590851        1549146        OS_FETCHED               BINARY                   UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109504    145570    0         5590851        1549146        OS_FETCHED               LOGICAL                  UOP_LOGIC           NOT                 NOT_CF              REG_DATA_DEP        0     0         
+109505    145571    0         5590851        1549146        OS_FETCHED               COND_BR                  UOP_IADD            NOT                 NOT_CF              REG_DATA_DEP        0     0         
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 1
+average execution cycle: 1673
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 2
+average execution cycle: 1594
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 3
+average execution cycle: 1444
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 4
+average execution cycle: 1189
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 5
+average execution cycle: 938
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 6
+average execution cycle: 786
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
+Current cycle:7139997
+Core id:0
+Last terminated thread:0
+----------------------------------------------------------
+core 7
+average execution cycle: 652
+INST_NUM  UOP_NUM   TID       CYCLE          DELTA          STATE                    OPCODE                   UOP_TYPE            MEM_TYPE            CF_TYPE             DEP_TYPE            CHILD PARENT    
+
+
