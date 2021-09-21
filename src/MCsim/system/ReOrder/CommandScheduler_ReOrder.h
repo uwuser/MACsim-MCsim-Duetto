@@ -182,7 +182,6 @@ namespace MCsim
 					}
 				}
 				queuePending[commandRegisters[registerIndex].second] = false;
-cout<<" command issue is from   "<<scheduledCommand->requestorID<<endl;
 				sendCommand(scheduledCommand, commandRegisters[registerIndex].second, false);
 				// Virtual Channel
 				if(requestorCriticalTable.at(scheduledCommand->requestorID) == false) {
@@ -195,7 +194,6 @@ cout<<" command issue is from   "<<scheduledCommand->requestorID<<endl;
 					for(unsigned int index=0; index<srtFIFO.size(); index++) {
 						if(isIssuable(srtFIFO[index].first)) {
 							scheduledCommand = srtFIFO[index].first;
-cout<<" command issued is from   "<<scheduledCommand->requestorID<<endl;
 							sendCommand(scheduledCommand, srtFIFO[index].second, false);
 							queuePending[srtFIFO[index].second] = false;
 							srtFIFO.erase(srtFIFO.begin() + index);

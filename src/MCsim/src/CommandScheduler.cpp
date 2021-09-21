@@ -206,8 +206,7 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 			for(unsigned int type = RD; type != PDE; type++) {
 				cmdQueueTimer[index][type] = std::max(cmdQueueTimer[index][type], 
 					memoryDevice->command_timing(cmd, static_cast<BusPacketType>(type)));
-					//cout<<" the timing for this command for   "<<type<<"  is set to  "<<cmdQueueTimer[index][type]<<endl;
-					//cout<<"kit   "<<memorySystem->command_timing(cmd, PRE)<<endl;
+			
 			}	
 			if(cmd->busPacketType > WRA){
 				if(cmd->address == commandQueue[index]->getCommand(true)->address && cmd->busPacketType ==commandQueue[index]->getCommand(true)->busPacketType )
@@ -299,6 +298,5 @@ void CommandScheduler::tick()
 		}
 	}
 	refreshMachine->step();
-	//cout<<"clock  "<<clock<<endl;;
 	clock++;
 }

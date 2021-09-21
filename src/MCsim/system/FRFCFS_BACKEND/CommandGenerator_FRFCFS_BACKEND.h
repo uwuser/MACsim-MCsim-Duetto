@@ -25,10 +25,8 @@ namespace MCsim
 			unsigned row = request->row;
 			unsigned col = request->col;	
 			unsigned sa = request->subArray;
-			//cout<<"11 the id is  "<<id<<"    "<<commandQueue[id]->getSize(true)<<endl;	
 			if(commandQueue[id]->getSize(true) == 0)
 			{
-				//cout<<"generating the command"<<endl;
 				// Crack the request to the DRAM command depending on being open or close 			
 				if(!open) { // Assuming the initial state of the banks in device is idle
 					commandBuffer.push(new BusPacket(PRE, id, address, col, row, bank, rank, sa, NULL, 0));
@@ -39,11 +37,9 @@ namespace MCsim
 				}
 			}
 			else if	(commandQueue[id]->getSize(true) > 0)
-			{
-				//cout<<"TTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT    for   "<<id<<endl;				
+			{			
 				return false;
 			}
-			//cout<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
 			return true;
 		}
 	};

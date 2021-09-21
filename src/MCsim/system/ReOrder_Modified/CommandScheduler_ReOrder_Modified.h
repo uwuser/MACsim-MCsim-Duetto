@@ -45,10 +45,8 @@ namespace MCsim
 				}
 				if(checkCommand!=NULL) {
 					if(checkCommand->busPacketType == RD  && checkCommand->requestorID ==0){
-						//cout<<"inja push mishe to register"<<endl;
 					}
 					if(isReady(checkCommand, index)) {
-						//cout<<"ready ham hast  "<<checkCommand->busPacketType<<"   "<<checkCommand->requestorID<<endl;
 						commandRegisters.push_back(make_pair(checkCommand,checkCommand->bank));						
 						queuePending[index] = true;	
 					}
@@ -61,66 +59,21 @@ namespace MCsim
 			bool switch_expected = false;	// A different CAS can be schedule
 			//bool haveCAS = false;
 			// Served Flag and access type Checking
-			/*
-			if(!commandRegisters.empty()) {
-				for(unsigned int index =0; index < commandRegisters.size(); index++){
-					checkCommand = commandRegisters[index].first;
-					if(checkCommand->busPacketType < ACT) {
-						haveCAS = true;
-						bool isServed = true;
-						if(requestorCriticalTable.at(checkCommand->requestorID) == false) {
-							isServed = servedFlags[virMap[checkCommand->requestorID]];
-						}
-						else {
-							isServed = servedFlags[commandRegisters[index].second];							
-							
-						}
-						if(isServed == false) {
-							newRound = false;
-							if(checkCommand->busPacketType == roundType) {
-								newType = false;
-								break;
-							}
-							else {
-								switch_expected = true;
-							}							
-						}
-					}
-				}
-				if(newRound) { 
-					cout<<"new round at  "<<clock<<endl;			
-					for(unsigned int index = 0; index < servedFlags.size(); index++) {
-						servedFlags[index] = false;
-					}
-				}
-				if(haveCAS) { 				// Switch access type					
-					if(newType && switch_expected) {
-						cout<<"type switched"<<endl;	
-						if(roundType == WR) {roundType = RD;}
-						else {roundType = WR;}
-					}					
-				}
-				checkCommand = NULL;	
-			}
-			*/
-		//cout<<"before determining the round type and is   "<<roundType<<endl;
+			
 			if(!commandRegisters.empty()) 
 			{
-				//cout<<"the size is   "<<commandRegisters.size()<<endl;
 				for(unsigned int index =0; index < commandRegisters.size(); index++){
 					checkCommand = commandRegisters[index].first;
 					if(checkCommand->busPacketType < ACT) {
 						bool isServed = true;
 						isServed = servedFlags[commandRegisters[index].second];																				
 						if(isServed == false && checkCommand->busPacketType == roundType){	
-							//cout<<"bayad biyad inja ke switch nakone  for   "<<checkCommand->address<<endl;
 							CAS_remain = true;						
 							break;
 						}
 						else if (isServed == false && checkCommand->busPacketType != roundType)
 						{
 							switch_expected = true;
-							//break;
 						}
 					}
 				}
@@ -133,14 +86,12 @@ namespace MCsim
 						newRound = true;					
 				}
 				
-				if(newRound) { 
-					//cout<<"new round at  "<<clock<<endl;			
+				if(newRound) { 		
 					for(unsigned int index = 0; index < servedFlags.size(); index++) {
 						servedFlags[index] = false;
 					}
 					if(switch_expected == true)
 					{
-						//cout<<"type switched"<<endl;	
 						if(roundType == WR) {roundType = RD;}
 						else {roundType = WR;}
 					}	
@@ -148,7 +99,6 @@ namespace MCsim
 				
 				checkCommand = NULL;	
 			}	
-			//cout<<"after determining the round type and is   "<<roundType<<endl;		
 			// Schedule the FIFO with CAS blocking
 			unsigned int registerIndex = 0;
 			if(!commandRegisters.empty()) {

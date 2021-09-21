@@ -49,29 +49,19 @@ unsigned int RequestScheduler::bufferSize(unsigned int qIndex){
 
 Request* RequestScheduler::scheduleFR_BACKEND(unsigned int qIndex, unsigned int reqIndex)
 {
-	//cout<<"4"<<endl;
 	for(unsigned int index=0; index < requestQueue[qIndex]->getSize(true, reqIndex); index++) {		
-		//cout<<"20"<<endl;
 	
 		if(requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index))){
-			//cout<<"21"<<endl;
-			if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){
-				//cout<<"################################  for queue  "<<reqIndex<<endl;
-				//cout<<"^^^^^^^^^^^^^^^^^^^^^  "<<requestQueue[qIndex]->checkRequestIndex(reqIndex,index)->address<<"    "<<index<<endl;
-				//cout<<"||||||||||||||||||for the request   "<<requestQueue[qIndex]->checkRequestIndex(reqIndex,index)->address<<"   index is   "<<index<<endl;			
+			if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){			
 				return requestQueue[qIndex]->getRequest(reqIndex,index, false);
 			}			
 		}	
 	}
-	//cout<<"5"<<endl;
 	for(unsigned int index=0; index < requestQueue[qIndex]->getSize(true, reqIndex); index++) {
-		//cout<<"22"<<endl;
 		if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){
-			//cout<<"8  and reqIndex is  "<<reqIndex<<"   index is   "<<index<<endl;
 			return requestQueue[qIndex]->getRequest(reqIndex,index, false);
 		}
 	}	
-	//cout<<"6"<<endl;
 	return NULL;
 }
 bool RequestScheduler::isSchedulable(Request* request, bool open, bool mode)
@@ -89,7 +79,6 @@ bool RequestScheduler::isSchedulable(Request* request, bool open, bool mode)
 		else {
 			 TRACE_REQ("TRACE-REQUEST:WRITE"<<"\t\t"<<clockCycle<<":"<<"\t\tAddress: "<<request->address<<"\t\tBank: "<<request->bank<<"\t\tColumn: "<<request->col<<"\t\tRow: "<<request->row);}								
 	}
-	//cout<<"what is request size here?  "<<request->requestSize<<endl;
 	return commandGenerator->commandGenerate(request, open, mode);
 }
 

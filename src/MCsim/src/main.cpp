@@ -102,13 +102,6 @@ int main(int argc, char **argv)
 	
 	// Channel, MemoryController, Requestor
 
-
-
-	
-
-
-
-
 	map<int, Requestor*> requestorsMap;
 	// Callback function pass complete request to requestor
 	auto callBack = [&requestorsMap](MCsim::Request& r) {
@@ -123,7 +116,6 @@ int main(int argc, char **argv)
 	for(unsigned int c = 0; c < channels; c++) {
 		DEBUG("MEMORY CONTROLLER IS:   "<<systemIniFilename);
 		
-
 	}
 	ifstream memTrace;
 	memTrace.open(traceFileName.c_str());

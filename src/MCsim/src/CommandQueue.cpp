@@ -40,11 +40,6 @@ unsigned int CommandQueue::getRequestorSize(unsigned int index, bool mode)  // G
 		//cout<<"15 the size is  "<<requestorMap.size()<<endl;
 		abort();
 	}
-	//else if(requestorBuffer.size() == 0)
-	//{
-	//	cout<<"17"<<endl;
-	//	return 0;
-	//}
 	else if(!mode) {
 		
 		if(requestorBuffer.find(index) == requestorBuffer.end()) {
@@ -68,14 +63,11 @@ unsigned int CommandQueue::getRequestorSize(unsigned int index, bool mode)  // G
  
 unsigned int CommandQueue::getSize(bool critical) // Get the size of the general cmd buffers based on the criticality
 {
-	//cout<<"in get size "<<endl;
 
 	if(critical){
-		//cout<<"in get size critical "<<endl;
 		return hrtBuffer.size(); 
 	}	
 	else{
-		//cout<<"in get size srt "<<endl;
 		return srtBuffer.size(); 
 	}
 }

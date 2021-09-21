@@ -195,10 +195,7 @@ void MemoryController::connectMemoryDevice(MemoryDevice* memDev) {
 			//isHRT = true;
 		
 		setRequestor(id, isHRT);
-
-
 	}
-	
 
 	// construct the request and command queues
 	unsigned int queueNum = queueNumber(reqMap);
@@ -218,7 +215,6 @@ void MemoryController::connectMemoryDevice(MemoryDevice* memDev) {
 			commandQueue_RT.push_back(new CommandQueue(requestorCmdQ));
 		}
 	}
-
 	// Configured Scheduler based on configuration table
 	schedulerRegister = new SchedulerRegister(dataBusWidth, requestorCriticalTable, requestQueue, commandQueue, commandQueue_RT);
 	addressMapping = new AddressMapping(configTable["AddressMapping"], memTable);
@@ -252,8 +248,6 @@ bool MemoryController::addRequest(unsigned int requestorID, unsigned long long a
 	// Decode the request queue index
 	
 	unsigned int queueIndex = decodeQueue(incomingRequest->addressMap, reqMap); // True indicate requestQueue
-	//cout<<"----------------------------------------  queue index is   ------------------------------"<<queueIndex<<endl;
-	//cout<<"----------------------------------------  requestor ID   ------------------------------"<<incomingRequest->requestorID<<endl;
 	if(requestQueue[queueIndex]->insertRequest(incomingRequest))
 	{
 		if(incomingRequest->requestType == DATA_READ) {
@@ -337,11 +331,8 @@ void MemoryController::update()
 			abort();
 		}
 	}
-	//cout<<" all pushed to the HP queue now check RT"<<endl;
 	while(commandGenerator->bufferSize_RT() > 0) {
-		//cout<<" command exist for RT and buffer size is  "<<commandGenerator->bufferSize_RT()<<endl;
 		if(enqueueCommand(commandGenerator->getCommand_RT(),1)) {
-			//cout<<"***"<<endl;
 			commandGenerator->removeCommand_RT();	
 		}
 		else {

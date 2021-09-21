@@ -60,8 +60,6 @@ void AddressMapping::addressMapping(Request* request)
 				abort();
 		}
 	}
-
-// Case 2: Single Rank Bank Privatized Controllers
 //#ifdef SINGLE_RANK_BANK_PRIVATIZATION
 	request->rank = 0;
 	request->bank = request->requestorID;

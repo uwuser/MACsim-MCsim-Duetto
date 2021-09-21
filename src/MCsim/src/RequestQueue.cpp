@@ -58,7 +58,6 @@ bool RequestQueue::insertRequest(Request* request)
 
 	if(perRequestorEnable) {
 		if(requestorBuffer.find(request->requestorID) == requestorBuffer.end()) {
-			//cout<<"&&&&&&&&&&&&&&&&&&&&&&&& generated   "<<request->requestorID<<endl;
 			requestorBuffer[request->requestorID] = std::vector<Request*>();
 			requestorOrder.push_back(request->requestorID);
 		}
@@ -77,14 +76,11 @@ unsigned int RequestQueue::getQueueSize()
 
 unsigned int RequestQueue::getSize(bool requestor, unsigned int index)
 {
-	//cout<<"inside getsize "<<endl;
 	if(requestor) {
 		if(requestorOrder.size() == 0) {
-			//cout<<"inside getsize size zero"<<endl;
 			return 0; 
 		}
 		else {
-			//cout<<"inside else  and index is "<<index<<endl;
 			// No such requestor
 			//if(requestorBuffer.find(requestorOrder[index]) == requestorBuffer.end()){ 
 			if(requestorBuffer.find(index) == requestorBuffer.end()){ 
@@ -92,7 +88,6 @@ unsigned int RequestQueue::getSize(bool requestor, unsigned int index)
 				return 0; 
 			}	
 			else { 
-				////cout<<"size is  "<<requestorBuffer[index].size()<<endl;
 				return requestorBuffer[index].size();
 			}
 		}
@@ -133,13 +128,11 @@ Request* RequestQueue::getRequest(unsigned int reqIndex, unsigned int index, boo
 	// Scan the requestorqueue by index, instead of requestorID value 
 	if(!mode)
 	{
-		//cout<<"inside get request and HP mode and reqIndex is  "<<reqIndex<<endl;
 		//if(requestorBuffer[requestorOrder[reqIndex]].empty()) {
 		if(requestorBuffer[reqIndex].empty()) {
 			return NULL;
 		}
 		else {
-			//cout<<"432"<<endl;
 			scheduledRequest_HP[reqIndex].first = true;
 			//scheduledRequest_HP[reqIndex].second = std::make_pair(requestorOrder[reqIndex],index);
 			scheduledRequest_HP[reqIndex].second = std::make_pair(reqIndex,index);
@@ -150,12 +143,10 @@ Request* RequestQueue::getRequest(unsigned int reqIndex, unsigned int index, boo
 	else
 	{
 		//cout<<"inside get request and RT mode and reqIndex is  "<<reqIndex<<endl;
-		//if(requestorBuffer[requestorOrder[reqIndex]].empty()) {
 		if(requestorBuffer[reqIndex].empty()) {
 			return NULL;
 		}
 		else {
-			//cout<<"433"<<endl;
 			scheduledRequest_RT[reqIndex].first = true;
 			//scheduledRequest_RT[reqIndex].second = std::make_pair(requestorOrder[reqIndex],index);
 			scheduledRequest_RT[reqIndex].second = std::make_pair(reqIndex,index);
@@ -168,18 +159,15 @@ Request* RequestQueue::getRequest(unsigned int reqIndex, unsigned int index, boo
 // Scan the requestorqueue by index, instead of requestorID value 
 Request* RequestQueue::checkRequestIndex(unsigned int reqIndex, unsigned int index)
 {
-	//if(requestorBuffer[requestorOrder[reqIndex]].empty()) {
 	if(requestorBuffer[reqIndex].empty()) {
 		return NULL;
 	}
 	else {
-		//return requestorBuffer[requestorOrder[reqIndex]][index];
 		return requestorBuffer[reqIndex][index];
 	}
 }
 void RequestQueue::syncRequest(unsigned int reqIndex, unsigned int index)
 {
-	//cout<<"%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%"<<endl;
 	scheduledRequest_HP[reqIndex].first =true;	
 	scheduledRequest_HP[reqIndex].second = scheduledRequest_RT[reqIndex].second;
 }
@@ -288,30 +276,19 @@ Request* RequestQueue::earliestperBankperReq(unsigned int p, unsigned int b)
 // Remove the previously access request, Once a request is buffered to another location, remove from the request queue
 void RequestQueue::removeRequest(bool mode, unsigned int reqID)
 {
-	//cout<<"Inside remove request &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
 	if(!mode)
 	{
-		//cout<<"54"<<endl;
 		unsigned id = scheduledRequest_HP[reqID].second.first;
-		//cout<<"55  id is  "<<id<<endl;
 		unsigned index = scheduledRequest_HP[reqID].second.second;
-		//cout<<"56"<<endl;
 		if(scheduledRequest_HP[reqID].first) {
-			//cout<<"57  and index is  "<<index<<"   and the size is   "<<requestorBuffer[id].size()<<endl;
-			//cout<<"  -----------Watch for requestor Buffer---------------"<<endl;
-			//for(unsigned int  i = 0;i<requestorBuffer[id].size();i++)
-			//	cout<<"address is  "<<requestorBuffer[id].at(i)->address<<endl;
 			requestorBuffer[id].erase(requestorBuffer[id].begin() + index);
 		}
 		else {
-			//cout<<"58"<<endl;
 			generalBuffer.erase(generalBuffer.begin() + index);
 		}
-		////cout<<"60"<<endl;
 	}
 	else
 	{
-		//cout<<"59"<<endl;
 		unsigned id = scheduledRequest_RT[reqID].second.first;
 		unsigned index = scheduledRequest_RT[reqID].second.second;
 		if(scheduledRequest_RT[reqID].first) {
@@ -325,7 +302,6 @@ void RequestQueue::removeRequest(bool mode, unsigned int reqID)
 
 void RequestQueue::updateRowTable(unsigned rank, unsigned bank, unsigned row)
 {
-	//cout<<"Inside update table &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&"<<endl;
 	
 	bankTable[rank][bank] = row;
 }

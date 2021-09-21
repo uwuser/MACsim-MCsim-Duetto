@@ -142,32 +142,24 @@ namespace MCsim
 				}
 				else
 				{
-					//cout<<"in command scheduler  queue  "<<index<<endl;
 					if(commandQueue[index]->getSize(true) > 0)
 					{
-						//cout<<"20"<<endl;
 						checkCommand = commandQueue[index]->getCommand(true);
 						if(checkCommand != NULL)
-						{						
-						//	cout<<"21"<<endl;		
+						{							
 							if(isReady(checkCommand,index))
 							{
-								//cout<<"22"<<endl;
 								if(isIssuable(checkCommand))
 								{
-									//cout<<"23"<<endl;
 									if(checkCommand_temp_2 != NULL)
 									{
-										//cout<<"24"<<endl;
-										if((checkCommand->busPacketType == RD || checkCommand->busPacketType == WR)){
-											//cout<<"25"<<endl;
+										if((checkCommand->busPacketType == RD || checkCommand->busPacketType == WR)){								
 											if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 												checkCommand_temp_2 = checkCommand;
 												index_temp = index;
 											}
 										}
 										else if(checkCommand->busPacketType == ACT){
-											//cout<<"26"<<endl;
 											if(checkCommand_temp_2->busPacketType == ACT){
 												if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 													checkCommand_temp_2 = checkCommand;
@@ -181,7 +173,6 @@ namespace MCsim
 											}
 										}	
 										else if(checkCommand->busPacketType == PRE){
-											//cout<<"28"<<endl;
 											if(checkCommand_temp_2->busPacketType == PRE){
 												if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 													checkCommand_temp_2 = checkCommand;
@@ -193,7 +184,6 @@ namespace MCsim
 									}
 									else
 									{
-										//cout<<"29"<<endl;
 										checkCommand_temp_2 = checkCommand;
 										index_temp = index;
 									}																													
@@ -203,9 +193,7 @@ namespace MCsim
 						checkCommand = NULL;	
 					}
 					if(index == commandQueue.size()-1){
-						//cout<<"30"<<endl;
 						if(checkCommand_temp_2 != NULL){
-							//cout<<"34"<<endl;
 							scheduledCommand = checkCommand_temp_2;
 							checkCommand_temp_2 = NULL;
 							sendCommand(scheduledCommand, index_temp,false);
