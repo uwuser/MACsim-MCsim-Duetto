@@ -58,11 +58,11 @@ namespace MCsim
 			unsigned int tRP;
 			int suspect_requestor;
 			bool suspect_flag;
-			 int front_has_sth;
-			 int front_has_pre;
-			 int front_has_act;
-			 int front_has_rd;
-			 int front_has_wr;
+			int front_has_sth;
+			int front_has_pre;
+			int front_has_act;
+			int front_has_rd;
+			int front_has_wr;
 			bool remove;
 	public:
 		CommandScheduler_DUET(vector<RequestQueue*>& requestQueues, vector<CommandQueue*>& commandQueues, 
