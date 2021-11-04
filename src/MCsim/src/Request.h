@@ -16,7 +16,7 @@ namespace MCsim
 	class Request
 	{
 	public:
-		Request(unsigned int id, RequestType requestType, unsigned int size, unsigned long long addr, void *data):
+		Request(unsigned int id, RequestType requestType, unsigned int size, uint64_t addr, void *data):
 			requestType(requestType),
 			requestorID(id),
 			requestSize(size),
@@ -28,7 +28,7 @@ namespace MCsim
 		RequestType requestType;
 		unsigned int requestorID;
 		unsigned int requestSize;
-		unsigned long long address;
+		uint64_t address;
 		void *data;
 		unsigned int arriveTime;
 		unsigned int returnTime;

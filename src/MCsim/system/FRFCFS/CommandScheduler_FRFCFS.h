@@ -142,24 +142,32 @@ namespace MCsim
 				}
 				else
 				{
+					
 					if(commandQueue[index]->getSize(true) > 0)
 					{
+					
 						checkCommand = commandQueue[index]->getCommand(true);
 						if(checkCommand != NULL)
-						{							
+						{						
+					
 							if(isReady(checkCommand,index))
 							{
+					
 								if(isIssuable(checkCommand))
 								{
+					
 									if(checkCommand_temp_2 != NULL)
 									{
-										if((checkCommand->busPacketType == RD || checkCommand->busPacketType == WR)){								
+					
+										if((checkCommand->busPacketType == RD || checkCommand->busPacketType == WR)){
+					
 											if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 												checkCommand_temp_2 = checkCommand;
 												index_temp = index;
 											}
 										}
 										else if(checkCommand->busPacketType == ACT){
+					
 											if(checkCommand_temp_2->busPacketType == ACT){
 												if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 													checkCommand_temp_2 = checkCommand;
@@ -167,12 +175,13 @@ namespace MCsim
 												}	
 											}
 											else if(checkCommand_temp_2->busPacketType == PRE){
-												//cout<<"27"<<endl;
+					
 												checkCommand_temp_2 = checkCommand;
 												index_temp = index;
 											}
 										}	
 										else if(checkCommand->busPacketType == PRE){
+					
 											if(checkCommand_temp_2->busPacketType == PRE){
 												if(checkCommand->arriveTime < checkCommand_temp_2->arriveTime){
 													checkCommand_temp_2 = checkCommand;
@@ -184,6 +193,7 @@ namespace MCsim
 									}
 									else
 									{
+					
 										checkCommand_temp_2 = checkCommand;
 										index_temp = index;
 									}																													
@@ -193,7 +203,9 @@ namespace MCsim
 						checkCommand = NULL;	
 					}
 					if(index == commandQueue.size()-1){
+					
 						if(checkCommand_temp_2 != NULL){
+					
 							scheduledCommand = checkCommand_temp_2;
 							checkCommand_temp_2 = NULL;
 							sendCommand(scheduledCommand, index_temp,false);

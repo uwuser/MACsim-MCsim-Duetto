@@ -1,0 +1,9328 @@
+src/macsim.cc:135: (I=0  C=0):  initialize knobs
+number of cores : 8
+src/macsim.cc:534: (I=0  C=0):  initialize simulation
+src/macsim.cc:320: (I=0  C=0):  initialize cores (8/0/0)
+src/router.cc:1306: (I=0  C=0):  router:0 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:1 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:2 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:3 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:4 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:5 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:6 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:7 type:0 created
+src/router.cc:1306: (I=0  C=0):  router:8 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:9 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:10 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:11 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:12 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:13 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:14 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:15 type:2 created
+src/router.cc:1306: (I=0  C=0):  router:16 type:3 created
+enabling bug detector
+src/macsim.cc:769: (I=0  C=0):  Initializing new noc
+
+Ring configuration
+0 <-> 1 <-> 2 <-> 3 <-> 4 <-> 5 <-> 6 <-> 7 <-> 8 <-> 9 <-> 10 <-> 11 <-> 12 <-> 13 <-> 14 <-> 15 <-> 16 <-> 
+src/macsim.cc:834: (I=0  C=0):  Clock LCM           : 30
+src/macsim.cc:835: (I=0  C=0):  CPU clock frequency : 1 GHz 3
+src/macsim.cc:836: (I=0  C=0):  GPU clock frequency : 1.5 GHz 2
+src/macsim.cc:837: (I=0  C=0):  L3  clock frequency : 1 GHz 3
+src/macsim.cc:838: (I=0  C=0):  NOC clock frequency : 1 GHz 3
+src/macsim.cc:839: (I=0  C=0):  MC  clock frequency : 1 GHz 3
+---------------------------------command scheduler DUET--------------------------------- clock is  1
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  2
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  3
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  4
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  5
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  6
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  7
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  8
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  9
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  10
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  11
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  12
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  13
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  14
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  15
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  16
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  17
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  18
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  19
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  20
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  21
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  22
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  23
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  24
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  25
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  26
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  27
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  28
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  29
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  30
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  31
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  32
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  33
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  34
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  35
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  36
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  37
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  38
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  39
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  40
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  41
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  42
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  43
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  44
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  45
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  46
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  47
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  48
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  49
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  50
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  51
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  52
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  53
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  54
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  55
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  56
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  57
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  58
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  59
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  60
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  61
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  62
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  63
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  64
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  65
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  66
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  67
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  68
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  69
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  70
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  71
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  72
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  73
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  74
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  75
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  76
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  77
+in set deadline  
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   0  is  0
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  78
+in set deadline  
+24
+26
+27
+||||||||||||||||||||||||||||| Order Watches ||||||||||||||||||||||||
+ Order watch:  0
+||||||||||||||||||||||||||||| Deadline Watches ||||||||||||||||||||||
+the deadline for   0   is   149
+the deadline for   1   is   149
+the deadline for   2   is   149
+the deadline for   3   is   149
+the deadline for   4   is   149
+the deadline for   5   is   149
+the deadline for   6   is   149
+the deadline for   7   is   149
+1
+2
+3
+4
+5
+6
+---------------------------Inside actual wcl for  0---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+in return oldest
+20122
+2002
+5
+in return oldest
+20122
+2002
+5
+in return oldest
+20122
+2002
+5
+ WCL Estimation for   0  is  57
+---------------------------Inside actual wcl for  1---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   1  is  0
+---------------------------Inside actual wcl for  2---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   2  is  0
+---------------------------Inside actual wcl for  3---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   3  is  0
+---------------------------Inside actual wcl for  4---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   4  is  0
+---------------------------Inside actual wcl for  5---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   5  is  0
+---------------------------Inside actual wcl for  6---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   6  is  0
+---------------------------Inside actual wcl for  7---------------------------
+28
+29
+30
+31
+32
+33
+34
+131
+21
+22
+ WCL Estimation for   7  is  0
+8
+18
+20
+---------------------------------command scheduler DUET--------------------------------- clock is  79

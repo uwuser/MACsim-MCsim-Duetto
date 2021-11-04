@@ -8,7 +8,7 @@ core_type x86
 large_core_type x86
 #sim_cycle_count 20000000
 # max_insts 2000000
-sim_cycle_count 86900000000
+sim_cycle_count 30000000000
 #max_insts 200000
 max_insts 50000000000
 heartbeat_interval 1000000000
@@ -17,7 +17,7 @@ repeat_trace 1
 
 # Clock
 clock_cpu 1
-clock_gpu 1.5
+clock_gpu 1
 clock_l3  1
 clock_noc 1
 clock_mc  1

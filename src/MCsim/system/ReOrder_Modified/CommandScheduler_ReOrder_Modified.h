@@ -45,8 +45,10 @@ namespace MCsim
 				}
 				if(checkCommand!=NULL) {
 					if(checkCommand->busPacketType == RD  && checkCommand->requestorID ==0){
+						
 					}
 					if(isReady(checkCommand, index)) {
+						
 						commandRegisters.push_back(make_pair(checkCommand,checkCommand->bank));						
 						queuePending[index] = true;	
 					}
@@ -58,22 +60,24 @@ namespace MCsim
 			//bool newType = true;	// Should switch casType?
 			bool switch_expected = false;	// A different CAS can be schedule
 			//bool haveCAS = false;
-			// Served Flag and access type Checking
 			
 			if(!commandRegisters.empty()) 
 			{
+				
 				for(unsigned int index =0; index < commandRegisters.size(); index++){
 					checkCommand = commandRegisters[index].first;
 					if(checkCommand->busPacketType < ACT) {
 						bool isServed = true;
 						isServed = servedFlags[commandRegisters[index].second];																				
 						if(isServed == false && checkCommand->busPacketType == roundType){	
+				
 							CAS_remain = true;						
 							break;
 						}
 						else if (isServed == false && checkCommand->busPacketType != roundType)
 						{
 							switch_expected = true;
+							//break;
 						}
 					}
 				}
@@ -86,12 +90,14 @@ namespace MCsim
 						newRound = true;					
 				}
 				
-				if(newRound) { 		
+				if(newRound) { 
+					
 					for(unsigned int index = 0; index < servedFlags.size(); index++) {
 						servedFlags[index] = false;
 					}
 					if(switch_expected == true)
 					{
+						
 						if(roundType == WR) {roundType = RD;}
 						else {roundType = WR;}
 					}	
@@ -99,6 +105,7 @@ namespace MCsim
 				
 				checkCommand = NULL;	
 			}	
+		
 			// Schedule the FIFO with CAS blocking
 			unsigned int registerIndex = 0;
 			if(!commandRegisters.empty()) {

@@ -1,165 +1,18 @@
 == Core 0 ==
 ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-846396               1860104    519896     DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
+23626                509939     61         DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
+23627                509940     60         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
+23628                509940     60         DSTORE          MEM_MERGED      1       23627                DSTORE          MEM_IN_NOC     
+23629                509940     60         DFETCH          MEM_MERGED      1       23627                DSTORE          MEM_IN_NOC     
 
 == Core 1 ==
 ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565296              2379737    263        DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565305              2379739    261        DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565537              2379877    123        DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-
-== Core 2 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565581              2379902    98         DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565602              2379920    80         DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565604              2379921    79         DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
-
-== Core 3 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565478              2379851    149        DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565485              2379852    148        DSTORE          MEM_MERGED      1       1565478              DSTORE          MEM_IN_NOC     
-1565486              2379852    148        DSTORE          MEM_MERGED      1       1565478              DSTORE          MEM_IN_NOC     
-1565487              2379852    148        DSTORE          MEM_MERGED      1       1565478              DSTORE          MEM_IN_NOC     
-1565540              2379878    122        DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565541              2379878    122        DSTORE          MEM_MERGED      1       1565540              DSTORE          MEM_IN_NOC     
-1565542              2379878    122        DSTORE          MEM_MERGED      1       1565540              DSTORE          MEM_IN_NOC     
-1565543              2379878    122        DSTORE          MEM_MERGED      1       1565540              DSTORE          MEM_IN_NOC     
-1565577              2379896    104        DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565578              2379897    103        DSTORE          MEM_MERGED      1       1565577              DSTORE          MEM_IN_NOC     
-1565579              2379897    103        DSTORE          MEM_MERGED      1       1565577              DSTORE          MEM_IN_NOC     
-1565580              2379897    103        DSTORE          MEM_MERGED      1       1565577              DSTORE          MEM_IN_NOC     
-1565582              2379906    94         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565583              2379906    94         DSTORE          MEM_MERGED      1       1565582              DSTORE          MEM_IN_NOC     
-1565584              2379906    94         DSTORE          MEM_MERGED      1       1565582              DSTORE          MEM_IN_NOC     
-1565585              2379906    94         DSTORE          MEM_MERGED      1       1565582              DSTORE          MEM_IN_NOC     
-1565586              2379911    89         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565587              2379912    88         DSTORE          MEM_MERGED      1       1565586              DSTORE          MEM_IN_NOC     
-1565588              2379912    88         DSTORE          MEM_MERGED      1       1565586              DSTORE          MEM_IN_NOC     
-1565589              2379912    88         DSTORE          MEM_MERGED      1       1565586              DSTORE          MEM_IN_NOC     
-1565595              2379916    84         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565596              2379916    84         DSTORE          MEM_MERGED      1       1565595              DSTORE          MEM_IN_NOC     
-1565597              2379916    84         DSTORE          MEM_MERGED      1       1565595              DSTORE          MEM_IN_NOC     
-1565598              2379916    84         DSTORE          MEM_MERGED      1       1565595              DSTORE          MEM_IN_NOC     
-1565607              2379923    77         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565610              2379924    76         DSTORE          MEM_MERGED      1       1565607              DSTORE          MEM_IN_NOC     
-1565611              2379924    76         DSTORE          MEM_MERGED      1       1565607              DSTORE          MEM_IN_NOC     
-1565612              2379924    76         DSTORE          MEM_MERGED      1       1565607              DSTORE          MEM_IN_NOC     
-1565616              2379931    69         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565617              2379931    69         DSTORE          MEM_MERGED      1       1565616              DSTORE          MEM_IN_NOC     
-1565618              2379931    69         DSTORE          MEM_MERGED      1       1565616              DSTORE          MEM_IN_NOC     
-1565619              2379931    69         DSTORE          MEM_MERGED      1       1565616              DSTORE          MEM_IN_NOC     
-1565625              2379938    62         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565627              2379939    61         DSTORE          MEM_MERGED      1       1565625              DSTORE          MEM_IN_NOC     
-1565628              2379939    61         DSTORE          MEM_MERGED      1       1565625              DSTORE          MEM_IN_NOC     
-1565629              2379939    61         DSTORE          MEM_MERGED      1       1565625              DSTORE          MEM_IN_NOC     
-1565633              2379941    59         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565634              2379941    59         DSTORE          MEM_MERGED      1       1565633              DSTORE          MEM_IN_NOC     
-1565635              2379941    59         DSTORE          MEM_MERGED      1       1565633              DSTORE          MEM_IN_NOC     
-1565636              2379941    59         DSTORE          MEM_MERGED      1       1565633              DSTORE          MEM_IN_NOC     
-1565641              2379946    54         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565643              2379947    53         DSTORE          MEM_MERGED      1       1565641              DSTORE          MEM_IN_NOC     
-1565644              2379947    53         DSTORE          MEM_MERGED      1       1565641              DSTORE          MEM_IN_NOC     
-1565645              2379947    53         DSTORE          MEM_MERGED      1       1565641              DSTORE          MEM_IN_NOC     
-1565650              2379951    49         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565651              2379951    49         DSTORE          MEM_MERGED      1       1565650              DSTORE          MEM_IN_NOC     
-1565652              2379951    49         DSTORE          MEM_MERGED      1       1565650              DSTORE          MEM_IN_NOC     
-1565653              2379951    49         DSTORE          MEM_MERGED      1       1565650              DSTORE          MEM_IN_NOC     
-1565664              2379961    39         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565666              2379962    38         DSTORE          MEM_MERGED      1       1565664              DSTORE          MEM_IN_NOC     
-1565667              2379962    38         DSTORE          MEM_MERGED      1       1565664              DSTORE          MEM_IN_NOC     
-1565668              2379962    38         DSTORE          MEM_MERGED      1       1565664              DSTORE          MEM_IN_NOC     
-1565677              2379973    27         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565678              2379973    27         DSTORE          MEM_MERGED      1       1565677              DSTORE          MEM_IN_NOC     
-1565679              2379973    27         DSTORE          MEM_MERGED      1       1565677              DSTORE          MEM_IN_NOC     
-1565680              2379973    27         DSTORE          MEM_MERGED      1       1565677              DSTORE          MEM_IN_NOC     
-1565689              2379981    19         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565692              2379982    18         DSTORE          MEM_MERGED      1       1565689              DSTORE          MEM_IN_NOC     
-1565693              2379982    18         DSTORE          MEM_MERGED      1       1565689              DSTORE          MEM_IN_NOC     
-1565694              2379982    18         DSTORE          MEM_MERGED      1       1565689              DSTORE          MEM_IN_NOC     
-1565713              2379993    7          DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565714              2379993    7          DSTORE          MEM_MERGED      1       1565713              DSTORE          MEM_IN_NOC     
-1565715              2379993    7          DSTORE          MEM_MERGED      1       1565713              DSTORE          MEM_IN_NOC     
-1565716              2379993    7          DSTORE          MEM_MERGED      1       1565713              DSTORE          MEM_IN_NOC     
-
-== Core 4 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565703              2379987    13         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565704              2379988    12         DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565706              2379989    11         DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565708              2379990    10         DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565709              2379991    9          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565711              2379992    8          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565717              2379993    7          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565719              2379994    6          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565721              2379995    5          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565723              2379996    4          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565726              2379997    3          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565728              2379998    2          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-1565729              2379999    1          DSTORE          MEM_MERGED      1       1565703              DSTORE          MEM_IN_NOC     
-
-== Core 5 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565600              2379918    82         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565601              2379919    81         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565603              2379920    80         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565605              2379921    79         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565606              2379922    78         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565608              2379923    77         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565609              2379924    76         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565613              2379925    75         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565614              2379926    74         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-1565615              2379927    73         DSTORE          MEM_MERGED      1       1565600              DSTORE          MEM_IN_NOC     
-
-== Core 6 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565658              2379955    45         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565659              2379956    44         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565660              2379957    43         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565661              2379958    42         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565662              2379959    41         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565663              2379960    40         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565665              2379961    39         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565669              2379962    38         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565670              2379963    37         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565671              2379964    36         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565705              2379989    11         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565707              2379990    10         DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565710              2379991    9          DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565712              2379992    8          DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565718              2379993    7          DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565720              2379994    6          DSTORE          MEM_MERGED      1       1565658              DSTORE          MEM_IN_NOC     
-1565722              2379995    5          DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565724              2379996    4          DSTORE          MEM_MERGED      1       1565722              DSTORE          MEM_IN_NOC     
-1565725              2379997    3          DSTORE          MEM_MERGED      1       1565722              DSTORE          MEM_IN_NOC     
-1565727              2379998    2          DSTORE          MEM_MERGED      1       1565722              DSTORE          MEM_IN_NOC     
-1565730              2379999    1          DSTORE          MEM_MERGED      1       1565722              DSTORE          MEM_IN_NOC     
-
-== Core 7 ==
-ID                   IN_TIME    DELTA      TYPE            STATE           MERGED  MERGED_ID            MERGED_TYPE     MERGED_STATE   
-1565630              2379939    61         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565631              2379940    60         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565632              2379941    59         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565637              2379942    58         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565638              2379943    57         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565639              2379944    56         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565640              2379945    55         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565642              2379946    54         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565646              2379947    53         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565647              2379948    52         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565673              2379970    30         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565674              2379971    29         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565675              2379972    28         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565676              2379973    27         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565681              2379974    26         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565682              2379975    25         DSTORE          MEM_MERGED      1       1565630              DSTORE          MEM_IN_NOC     
-1565683              2379976    24         DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
-1565684              2379977    23         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565685              2379978    22         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565686              2379979    21         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565687              2379980    20         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565688              2379981    19         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565691              2379982    18         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565696              2379983    17         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565699              2379984    16         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
-1565701              2379985    15         DSTORE          MEM_MERGED      1       1565683              DSTORE          MEM_IN_NOC     
+6                    18         509982     DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
+7                    18         509982     DSTORE          MEM_MERGED      1       6                    DSTORE          MEM_IN_NOC     
+8                    18         509982     DSTORE          MEM_MERGED      1       6                    DSTORE          MEM_IN_NOC     
+9                    18         509982     DSTORE          MEM_MERGED      1       6                    DSTORE          MEM_IN_NOC     
+10                   18         509982     DSTORE          MEM_MERGED      1       6                    DSTORE          MEM_IN_NOC     
+11                   18         509982     DSTORE          MEM_MERGED      1       6                    DSTORE          MEM_IN_NOC     
+13                   20         509980     DFETCH          MEM_IN_NOC      0       -1                   NULL            (null)         
+15                   22         509978     DSTORE          MEM_IN_NOC      0       -1                   NULL            (null)         
 

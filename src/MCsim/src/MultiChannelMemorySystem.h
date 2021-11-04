@@ -51,7 +51,7 @@ class MultiChannelMemorySystem : public SimulatorObject
 
 	
 	virtual ~MultiChannelMemorySystem();
-	bool addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size);
+	bool addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size);
 
 			
 	void update();

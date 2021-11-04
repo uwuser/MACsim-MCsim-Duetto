@@ -33,7 +33,7 @@ namespace MCsim
 				}
 			}
 			unsigned id = request->requestorID;
-			unsigned long long address = request->address;
+			uint64_t address = request->address;
 			unsigned rank = request->rank;
 			unsigned row = request->row;
 			unsigned col = request->col;

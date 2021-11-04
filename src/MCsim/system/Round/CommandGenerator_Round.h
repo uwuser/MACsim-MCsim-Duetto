@@ -21,7 +21,7 @@ namespace MCsim
 			}
 			unsigned size = request->requestSize/dataBusSize; 
 			unsigned id = request->requestorID;
-			unsigned long long address = request->address;
+			uint64_t address = request->address;
 			unsigned rank = 0;//request->rank;
 			unsigned bank = request->bank;
 			unsigned row = request->row;

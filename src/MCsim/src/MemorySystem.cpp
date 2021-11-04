@@ -120,6 +120,11 @@ MemorySystem::MemorySystem(unsigned int numRequestors_, unsigned id, const strin
 		DDR3* ddr3 = new DDR3(GeneSize, GeneSpeed);
 		memDev = new Ramulator<DDR3>(ddr3, numberRanks);
 	}
+	else if (deviceGene == "DDR4")
+	{
+		DDR4* ddr4 = new DDR4(GeneSize, GeneSpeed);
+		memDev = new Ramulator_DDR4<DDR4>(ddr4, numberRanks); 
+	}
 	else {
 		std::cout<<"Wrong DRAM standard"<<std::endl;
 	}
@@ -156,7 +161,7 @@ MemorySystem::~MemorySystem()
 
 
 
-bool MemorySystem::addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size)
+bool MemorySystem::addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size)
 {
 	
 		//cout<<"MH: inside memory sys add request"<<endl;

@@ -28,7 +28,8 @@ namespace MCsim
 		BusPacket* checkCommand(bool critical, unsigned int index);
 
 		// Remove most recently accessed cmd (from requestor queue or general fifo)
-		void removeCommand(unsigned int requestorID);
+		void removeCommand(unsigned int requestorID,bool mode);
+		
 		void removeCommand();
 		void setACT(unsigned int x);
 		

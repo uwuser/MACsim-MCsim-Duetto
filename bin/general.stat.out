@@ -2,17 +2,17 @@
 Interval
 ####################################################################################################
 Cumulative:         Cycles:                  20000     Instructions:                  1200
-INST_COUNT_TOT                                          282361916                     282361916
+INST_COUNT_TOT                                            9841202                       9841202
 
-UOP_COUNT_TOT                                           331472424                     331472424
+UOP_COUNT_TOT                                            11545427                      11545427
 
-CYC_COUNT_TOT                                           203359327                     203359327
+CYC_COUNT_TOT                                             3000002                       3000002
 
-EXE_TIME                                                     2597                          2597
+EXE_TIME                                                      120                           120
 
-NUM_REPEAT                                                     70                            70
+NUM_REPEAT                                                      0                             0
 
-CYC_COUNT_X86                                           332807097                     332807097
+CYC_COUNT_X86                                                   0                             0
 
 CYC_COUNT_PTX                                                   0                             0
 
@@ -26,95 +26,95 @@ FILE_OPEN_ERROR                                                 0               
 
 NUM_THREAD                                                      0                             0
 
-APPL_CYC_COUNT_BASE0                                            1                             1
+APPL_CYC_COUNT_BASE0                                            0                             0
 
-APPL_CYC_COUNT_BASE1                                            8                             8
+APPL_CYC_COUNT_BASE1                                            0                             0
 
-APPL_CYC_COUNT_BASE2                                            9                             9
+APPL_CYC_COUNT_BASE2                                            0                             0
 
-APPL_CYC_COUNT_BASE3                                            9                             9
+APPL_CYC_COUNT_BASE3                                            0                             0
 
-APPL_CYC_COUNT_BASE4                                           10                            10
+APPL_CYC_COUNT_BASE4                                            0                             0
 
-APPL_CYC_COUNT0                                         203359337                   2.03359e+08
+APPL_CYC_COUNT0                                                 0                           NaN
 
-APPL_CYC_COUNT1                                         188834273                   2.36043e+07
+APPL_CYC_COUNT1                                                 0                           NaN
 
-APPL_CYC_COUNT2                                         199002642                   2.21114e+07
+APPL_CYC_COUNT2                                                 0                           NaN
 
-APPL_CYC_COUNT3                                         187593426                   2.08437e+07
+APPL_CYC_COUNT3                                                 0                           NaN
 
-APPL_CYC_COUNT4                                         195982434                   1.95982e+07
+APPL_CYC_COUNT4                                                 0                           NaN
 
-CPI_DELTA_BASE0                                         202782534                     202782534
+CPI_DELTA_BASE0                                                 0                             0
 
-CPI_DELTA_BASE1                                         190332417                     190332417
+CPI_DELTA_BASE1                                                 0                             0
 
-CPI_DELTA_BASE2                                         195623028                     195623028
+CPI_DELTA_BASE2                                                 0                             0
 
 CPI_DELTA_BASE3                                                 0                             0
 
 CPI_DELTA_BASE4                                                 0                             0
 
-CPI_DELTA0                                                      0                             0
+CPI_DELTA0                                                      0                           NaN
 
-CPI_DELTA1                                                      0                             0
+CPI_DELTA1                                                      0                           NaN
 
-CPI_DELTA2                                                      0                             0
+CPI_DELTA2                                                      0                           NaN
 
 CPI_DELTA3                                                      0                           NaN
 
 CPI_DELTA4                                                      0                           NaN
 
-CYCLE_CPU                                                67786443                      67786443
+CYCLE_CPU                                                 3000002                       3000002
 
-CYCLE_GPU                                               101679664                     101679664
+CYCLE_GPU                                                 3000002                       3000002
 
-INST_COUNT_CORE_0                                         3242623                       3242623
+INST_COUNT_CORE_0                                          145236                        145236
 
-UOP_COUNT_CORE_0                                          4429472                       4429472
+UOP_COUNT_CORE_0                                           191497                        191497
 
-CYC_COUNT_CORE_0                                         67786443                      67786443
+CYC_COUNT_CORE_0                                          3000001                       3000001
 
-INST_COUNT_CORE_1                                        32913625                      32913625
+INST_COUNT_CORE_1                                          264254                        264254
 
-UOP_COUNT_CORE_1                                         38559222                      38559222
+UOP_COUNT_CORE_1                                           320142                        320142
 
-CYC_COUNT_CORE_1                                         67786443                      67786443
+CYC_COUNT_CORE_1                                          3000001                       3000001
 
-INST_COUNT_CORE_2                                        34677661                      34677661
+INST_COUNT_CORE_2                                          529057                        529057
 
-UOP_COUNT_CORE_2                                         40646682                      40646682
+UOP_COUNT_CORE_2                                           622254                        622254
 
-CYC_COUNT_CORE_2                                         67786443                      67786443
+CYC_COUNT_CORE_2                                          3000001                       3000001
 
-INST_COUNT_CORE_3                                        37826728                      37826728
+INST_COUNT_CORE_3                                          837889                        837889
 
-UOP_COUNT_CORE_3                                         44310547                      44310547
+UOP_COUNT_CORE_3                                           982558                        982558
 
-CYC_COUNT_CORE_3                                         67786443                      67786443
+CYC_COUNT_CORE_3                                          3000001                       3000001
 
-INST_COUNT_CORE_4                                        38701644                      38701644
+INST_COUNT_CORE_4                                         1255661                       1255661
 
-UOP_COUNT_CORE_4                                         45356215                      45356215
+UOP_COUNT_CORE_4                                          1469958                       1469958
 
-CYC_COUNT_CORE_4                                         67786443                      67786443
+CYC_COUNT_CORE_4                                          3000001                       3000001
 
-INST_COUNT_CORE_5                                        42276488                      42276488
+INST_COUNT_CORE_5                                         1650817                       1650817
 
-UOP_COUNT_CORE_5                                         49537695                      49537695
+UOP_COUNT_CORE_5                                          1930974                       1930974
 
-CYC_COUNT_CORE_5                                         67786443                      67786443
+CYC_COUNT_CORE_5                                          3000001                       3000001
 
-INST_COUNT_CORE_6                                        45484342                      45484342
+INST_COUNT_CORE_6                                         2193286                       2193286
 
-UOP_COUNT_CORE_6                                         53283173                      53283173
+UOP_COUNT_CORE_6                                          2563854                       2563854
 
-CYC_COUNT_CORE_6                                         67786443                      67786443
+CYC_COUNT_CORE_6                                          3000001                       3000001
 
-INST_COUNT_CORE_7                                        47238805                      47238805
+INST_COUNT_CORE_7                                         2965002                       2965002
 
-UOP_COUNT_CORE_7                                         55349418                      55349418
+UOP_COUNT_CORE_7                                          3464190                       3464190
 
-CYC_COUNT_CORE_7                                         67786443                      67786443
+CYC_COUNT_CORE_7                                          3000001                       3000001
 

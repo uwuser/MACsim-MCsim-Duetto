@@ -1,0 +1,120 @@
+####################################################################################################
+Interval
+####################################################################################################
+Cumulative:         Cycles:                  20000     Instructions:                  1200
+INST_COUNT_TOT                                            1978178                       1978178
+
+UOP_COUNT_TOT                                             2430454                       2430454
+
+CYC_COUNT_TOT                                             2000002                       2000002
+
+EXE_TIME                                                       66                            66
+
+NUM_REPEAT                                                      0                             0
+
+CYC_COUNT_X86                                                   0                             0
+
+CYC_COUNT_PTX                                                   0                             0
+
+AVG_BLOCK_EXE_CYCLE                                             0                             0
+
+AVG_BLOCK_EXE_CYCLE_BASE                                        0                             0
+
+PROGRESS_ERROR                                                  0                             0
+
+FILE_OPEN_ERROR                                                 0                             0
+
+NUM_THREAD                                                      0                             0
+
+APPL_CYC_COUNT_BASE0                                            0                             0
+
+APPL_CYC_COUNT_BASE1                                            0                             0
+
+APPL_CYC_COUNT_BASE2                                            0                             0
+
+APPL_CYC_COUNT_BASE3                                            0                             0
+
+APPL_CYC_COUNT_BASE4                                            0                             0
+
+APPL_CYC_COUNT0                                                 0                           NaN
+
+APPL_CYC_COUNT1                                                 0                           NaN
+
+APPL_CYC_COUNT2                                                 0                           NaN
+
+APPL_CYC_COUNT3                                                 0                           NaN
+
+APPL_CYC_COUNT4                                                 0                           NaN
+
+CPI_DELTA_BASE0                                                 0                             0
+
+CPI_DELTA_BASE1                                                 0                             0
+
+CPI_DELTA_BASE2                                                 0                             0
+
+CPI_DELTA_BASE3                                                 0                             0
+
+CPI_DELTA_BASE4                                                 0                             0
+
+CPI_DELTA0                                                      0                           NaN
+
+CPI_DELTA1                                                      0                           NaN
+
+CPI_DELTA2                                                      0                           NaN
+
+CPI_DELTA3                                                      0                           NaN
+
+CPI_DELTA4                                                      0                           NaN
+
+CYCLE_CPU                                                 2000002                       2000002
+
+CYCLE_GPU                                                 2000002                       2000002
+
+INST_COUNT_CORE_0                                          119634                        119634
+
+UOP_COUNT_CORE_0                                           158997                        158997
+
+CYC_COUNT_CORE_0                                          2000001                       2000001
+
+INST_COUNT_CORE_1                                          133569                        133569
+
+UOP_COUNT_CORE_1                                           175309                        175309
+
+CYC_COUNT_CORE_1                                          2000001                       2000001
+
+INST_COUNT_CORE_2                                          141602                        141602
+
+UOP_COUNT_CORE_2                                           185651                        185651
+
+CYC_COUNT_CORE_2                                          2000001                       2000001
+
+INST_COUNT_CORE_3                                          157430                        157430
+
+UOP_COUNT_CORE_3                                           204416                        204416
+
+CYC_COUNT_CORE_3                                          2000001                       2000001
+
+INST_COUNT_CORE_4                                          208154                        208154
+
+UOP_COUNT_CORE_4                                           259367                        259367
+
+CYC_COUNT_CORE_4                                          2000001                       2000001
+
+INST_COUNT_CORE_5                                          249614                        249614
+
+UOP_COUNT_CORE_5                                           304282                        304282
+
+CYC_COUNT_CORE_5                                          2000001                       2000001
+
+INST_COUNT_CORE_6                                          311918                        311918
+
+UOP_COUNT_CORE_6                                           371778                        371778
+
+CYC_COUNT_CORE_6                                          2000001                       2000001
+
+INST_COUNT_CORE_7                                          656257                        656257
+
+UOP_COUNT_CORE_7                                           770654                        770654
+
+CYC_COUNT_CORE_7                                          2000001                       2000001
+

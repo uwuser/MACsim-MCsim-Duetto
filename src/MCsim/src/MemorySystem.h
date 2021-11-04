@@ -51,6 +51,7 @@
 //#include "Requestor.h"
 #include "Request.h"
 #include "Ramulator.h"
+#include "Ramulator_DDR4.h"
 
 
 
@@ -66,7 +67,7 @@ public:
 	MemorySystem(unsigned int numRequestors, unsigned id, const string &systemIniFilename, const string &deviceGene,  const string &deviceSpeed, const string &deviceSize, unsigned int ranks, function<void(Request&)> callback);
 	virtual ~MemorySystem();
 	void update();
-	bool addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size);
+	bool addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size);
 	void flushWrite(bool sw);
 	void displayConfiguration();
 

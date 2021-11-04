@@ -35,25 +35,57 @@ unsigned int CommandQueue::getRequestorIndex()  // return the size command queue
 
 unsigned int CommandQueue::getRequestorSize(unsigned int index, bool mode)  // Get the size of individual buffer cmd for each requestor
 {
-	if(index > requestorMap.size()) {
-		DEBUG("COMMAND QUEUE: ACCESSED QUEUE OS OUT OF RANGE");
-		//cout<<"15 the size is  "<<requestorMap.size()<<endl;
-		abort();
-	}
-	else if(!mode) {
-		
-		if(requestorBuffer.find(index) == requestorBuffer.end()) {
-			requestorBuffer[index] = std::vector<BusPacket*>();
-			requestorMap.push_back(index);
+	if(!mode) 
+	{
+		if(requestorMap.size() == 0) 
+		{
+			requestorBuffer[0] = std::vector<BusPacket*>();
+			requestorBuffer[1] = std::vector<BusPacket*>();
+			requestorBuffer[2] = std::vector<BusPacket*>();
+			requestorBuffer[3] = std::vector<BusPacket*>();
+			requestorBuffer[4] = std::vector<BusPacket*>();
+			requestorBuffer[5] = std::vector<BusPacket*>();
+			requestorBuffer[6] = std::vector<BusPacket*>();
+			requestorBuffer[7] = std::vector<BusPacket*>();
+			requestorBuffer_RT[0] = std::vector<BusPacket*>();
+			requestorBuffer_RT[1] = std::vector<BusPacket*>();
+			requestorBuffer_RT[2] = std::vector<BusPacket*>();
+			requestorBuffer_RT[3] = std::vector<BusPacket*>();
+			requestorBuffer_RT[4] = std::vector<BusPacket*>();
+			requestorBuffer_RT[5] = std::vector<BusPacket*>();
+			requestorBuffer_RT[6] = std::vector<BusPacket*>();
+			requestorBuffer_RT[7] = std::vector<BusPacket*>();
+			for(int i; i<8; i++){
+				requestorMap.push_back(i);
+			}
 		}
-		
 		return requestorBuffer[requestorMap[index]].size(); 
 	}
 	else if(mode)
 	{
-		if(requestorBuffer_RT.find(index) == requestorBuffer_RT.end()) {
-			requestorBuffer_RT[index] = std::vector<BusPacket*>();
-			requestorMap.push_back(index);
+		
+		if(requestorMap.size() == 0) 
+		{
+		
+			requestorBuffer[0] = std::vector<BusPacket*>();
+			requestorBuffer[1] = std::vector<BusPacket*>();
+			requestorBuffer[2] = std::vector<BusPacket*>();
+			requestorBuffer[3] = std::vector<BusPacket*>();
+			requestorBuffer[4] = std::vector<BusPacket*>();
+			requestorBuffer[5] = std::vector<BusPacket*>();
+			requestorBuffer[6] = std::vector<BusPacket*>();
+			requestorBuffer[7] = std::vector<BusPacket*>();
+			requestorBuffer_RT[0] = std::vector<BusPacket*>();
+			requestorBuffer_RT[1] = std::vector<BusPacket*>();
+			requestorBuffer_RT[2] = std::vector<BusPacket*>();
+			requestorBuffer_RT[3] = std::vector<BusPacket*>();
+			requestorBuffer_RT[4] = std::vector<BusPacket*>();
+			requestorBuffer_RT[5] = std::vector<BusPacket*>();
+			requestorBuffer_RT[6] = std::vector<BusPacket*>();
+			requestorBuffer_RT[7] = std::vector<BusPacket*>();
+			for(int i; i<8; i++){
+				requestorMap.push_back(i);
+			}
 		}
 		
 		return requestorBuffer_RT[requestorMap[index]].size(); 
@@ -63,11 +95,14 @@ unsigned int CommandQueue::getRequestorSize(unsigned int index, bool mode)  // G
  
 unsigned int CommandQueue::getSize(bool critical) // Get the size of the general cmd buffers based on the criticality
 {
+	
 
 	if(critical){
+	
 		return hrtBuffer.size(); 
 	}	
 	else{
+	
 		return srtBuffer.size(); 
 	}
 }
@@ -143,17 +178,31 @@ BusPacket* CommandQueue::checkCommand(bool critical, unsigned int index) // Chec
 BusPacket* CommandQueue::getRequestorCommand(unsigned int index, bool mode) // Get a cmd from a particular requestor cmd buffer
 {
 	if(!mode){
-		return requestorBuffer[requestorMap[index]].front();
+		
+		return requestorBuffer[index].front();
 	}
 	else 
 	{
-		return requestorBuffer_RT[requestorMap[index]].front();
+		
+		return requestorBuffer_RT[index].front();
 	}
 	
 }
-void CommandQueue::removeCommand(unsigned int requestorID) // Remove a cmd from the beginning of the specific requestor queue
+void CommandQueue::removeCommand(unsigned int requestorID,bool mode) // Remove a cmd from the beginning of the specific requestor queue
 {
-	requestorBuffer[requestorID].erase(requestorBuffer[requestorID].begin());
+	if(!mode)
+	{
+		
+		requestorBuffer[requestorID].erase(requestorBuffer[requestorID].begin());		
+		
+	}
+	else
+	{
+
+		requestorBuffer_RT[requestorID].erase(requestorBuffer_RT[requestorID].begin());
+
+	}	
+
 }
 
 void CommandQueue::removeCommand() // Remove a cmd from the general buffers (hrt/srt) 

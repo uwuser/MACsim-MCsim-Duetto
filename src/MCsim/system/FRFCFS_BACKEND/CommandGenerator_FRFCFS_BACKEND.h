@@ -16,17 +16,19 @@ namespace MCsim
 			if(request->requestType == DATA_WRITE) {
 				CAS = WR;
 			}
-			//cout<<"---------------------------------Inside Command Generator---------------------------------"<<endl;
+			
 			unsigned size = request->requestSize/dataBusSize; 
 			unsigned id = request->requestorID;
-			unsigned long long address = request->address;
+			uint64_t address = request->address;
 			unsigned rank = request->rank; // 0 *****;
 			unsigned bank = request->bank;
 			unsigned row = request->row;
 			unsigned col = request->col;	
 			unsigned sa = request->subArray;
+			
 			if(commandQueue[id]->getSize(true) == 0)
 			{
+			
 				// Crack the request to the DRAM command depending on being open or close 			
 				if(!open) { // Assuming the initial state of the banks in device is idle
 					commandBuffer.push(new BusPacket(PRE, id, address, col, row, bank, rank, sa, NULL, 0));
@@ -37,9 +39,11 @@ namespace MCsim
 				}
 			}
 			else if	(commandQueue[id]->getSize(true) > 0)
-			{			
+			{
+			
 				return false;
 			}
+			
 			return true;
 		}
 	};

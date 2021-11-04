@@ -195,7 +195,10 @@ void MemoryController::connectMemoryDevice(MemoryDevice* memDev) {
 			//isHRT = true;
 		
 		setRequestor(id, isHRT);
+
+
 	}
+	
 
 	// construct the request and command queues
 	unsigned int queueNum = queueNumber(reqMap);
@@ -215,6 +218,7 @@ void MemoryController::connectMemoryDevice(MemoryDevice* memDev) {
 			commandQueue_RT.push_back(new CommandQueue(requestorCmdQ));
 		}
 	}
+
 	// Configured Scheduler based on configuration table
 	schedulerRegister = new SchedulerRegister(dataBusWidth, requestorCriticalTable, requestQueue, commandQueue, commandQueue_RT);
 	addressMapping = new AddressMapping(configTable["AddressMapping"], memTable);
@@ -227,9 +231,9 @@ void MemoryController::connectMemoryDevice(MemoryDevice* memDev) {
 }
 
 
-bool MemoryController::addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size)
+bool MemoryController::addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size)
 {
-	//cout<<"MH: Request Added inside MCsim"<<endl;
+	
 	string type = "write";
 	if(R_W) {type = "read";}
 	myTrace<< clockCycle <<","<< type <<","<<address<<","<<"16,"<< requestorID <<"\n";
@@ -241,6 +245,7 @@ bool MemoryController::addRequest(unsigned int requestorID, unsigned long long a
 	incomingRequest = new Request(requestorID, requestType, size, address, NULL);
 	incomingRequest->arriveTime = clockCycle;
 	addressMapping->addressMapping(incomingRequest); // Here the address mapping will occures
+	
 	// ============ Stats Tracker ===================
 	if(incomingRequest->requestorID == 0) {
 		stats.totalRequest++;
@@ -248,6 +253,8 @@ bool MemoryController::addRequest(unsigned int requestorID, unsigned long long a
 	// Decode the request queue index
 	
 	unsigned int queueIndex = decodeQueue(incomingRequest->addressMap, reqMap); // True indicate requestQueue
+	
+	
 	if(requestQueue[queueIndex]->insertRequest(incomingRequest))
 	{
 		if(incomingRequest->requestType == DATA_READ) {
@@ -264,6 +271,7 @@ bool MemoryController::addRequest(unsigned int requestorID, unsigned long long a
 bool MemoryController::enqueueCommand(BusPacket* command, bool mode)
 {
 	// ============ Stats Tracker ===================
+	
 	if(command->requestorID == 0) {
 		if(command->busPacketType == ACT_R) {stats.closeRequest = true;}
 		else if (command->busPacketType == ACT_W) {stats.closeRequest = true;}
@@ -322,7 +330,7 @@ void MemoryController::update()
 	
 	// So far, req queue have been created. Upon this line, a request will be chosen and remove from either general buffer or REQ buffers and pushed into the command buffers
 	while(commandGenerator->bufferSize() > 0) {
-		//cout<<" command exist for HP"<<endl;
+	
 		if(enqueueCommand(commandGenerator->getCommand(),0)) {
 			commandGenerator->removeCommand();	
 		}
@@ -331,8 +339,11 @@ void MemoryController::update()
 			abort();
 		}
 	}
+	
 	while(commandGenerator->bufferSize_RT() > 0) {
+	
 		if(enqueueCommand(commandGenerator->getCommand_RT(),1)) {
+	
 			commandGenerator->removeCommand_RT();	
 		}
 		else {
@@ -344,8 +355,10 @@ void MemoryController::update()
 	if(!commandScheduler->refreshing())
 	{
 		outgoingCmd = commandScheduler->commandSchedule();
+	
 		if(outgoingCmd != NULL)
 		{
+	
 			if(outgoingCmd->requestorID == 0 && outgoingCmd->busPacketType <= ACT)
 			{}
 			// outgoingCmd->rank instead of zero
@@ -408,7 +421,7 @@ void MemoryController::receiveData(BusPacket *bpacket)
 		{
 			if(pendingReadRequest[index]->requestSize == dataBusWidth) {	
 
-				// cout<<"	MC : Receive Data $"<<bpacket->requestorID<<" @ "<<clockCycle<<endl;
+				
 				returnReadData(pendingReadRequest[index]);							
 				// callback(*pendingReadRequest[index]);				
 				// ============ Stats Tracker ===================
@@ -486,11 +499,11 @@ void MemoryController::sendData(BusPacket* bpacket)
 void MemoryController::returnReadData(const Request *req)
 {
 
-	//cout<<"MH: inside returnReadData"<<endl;
+	
 	
 	if (parentMemorySystem->ReturnReadData!=NULL)
 	{
-		//cout<<"MH: it is not NULL"<<endl;
+	
 		(*parentMemorySystem->ReturnReadData)(parentMemorySystem->systemID, req->address, clockCycle);
 		
 	}
@@ -499,7 +512,7 @@ void MemoryController::returnReadData(const Request *req)
 void MemoryController::writeDataDone(const Request *req)
 {
 
-	//cout<<"MH: inside returnWriteData"<<endl;
+
 	
 	if (parentMemorySystem->WriteDataDone!=NULL)
 	{

@@ -74,7 +74,7 @@ void MemoryDevice::update() {
 				dataCycles[index]--;
 			}
 		}
-		// cout<<"dataCycles.front()= "<<dataCycles.front()<<endl;
+		
 		if(dataCycles.front() == 0) {
 			dataCycles.erase(dataCycles.begin());
 			memoryController->receiveData(pendingReadData.front());

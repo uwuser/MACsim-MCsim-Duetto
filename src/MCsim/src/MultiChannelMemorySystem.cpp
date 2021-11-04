@@ -232,9 +232,8 @@ ostream &MultiChannelMemorySystem::getLogFile()
 }
 
 
-bool MultiChannelMemorySystem::addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size)
+bool MultiChannelMemorySystem::addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size)
 {
-	//cout<<"inside add request multich"<<endl;
 	unsigned channelNumber = findChannelNumber(requestorID, address); 
 	return channels[channelNumber]->addRequest(requestorID, address, R_W, size); 
 }

@@ -44,7 +44,7 @@ namespace MCsim
 
 	class MultiChannelMemorySystem {
 		public: 
-			bool addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size);
+			bool addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size);
 			void setCPUClockSpeed(uint64_t cpuClkFreqHz);
 			void update();
 			void printStats(bool finalStats);

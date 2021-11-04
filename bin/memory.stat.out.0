@@ -2,15 +2,15 @@
 Interval
 ####################################################################################################
 Cumulative:         Cycles:                  20000     Instructions:                  1200
-AVG_MEMORY_LATENCY_BASE                                  58124234                      58124234
+AVG_MEMORY_LATENCY_BASE                                    777799                        777799
 
-AVG_MEMORY_LATENCY                                     8883304858                       152.833
+AVG_MEMORY_LATENCY                                       46977070                       60.3974
 
 MSHR_FULL                                                       0                             0
 
-TOTAL_MEMORY                                             58124395                      58124395
+TOTAL_MEMORY                                               777799                        777799
 
-TOTAL_MEMORY_MERGE                                       45441688                      0.781801
+TOTAL_MEMORY_MERGE                                         614381                      0.789897
 
 TOTAL_WB                                                        0                             0
 
@@ -28,7 +28,7 @@ L1_HIT_CPU                                                      0               
 
 L1_HIT_GPU                                                      0                             0
 
-L1_MISS_CPU                                              58124395                      58124395
+L1_MISS_CPU                                                777799                        777799
 
 L1_MISS_GPU                                                     0                             0
 
@@ -36,7 +36,7 @@ L2_HIT_CPU                                                      0               
 
 L2_HIT_GPU                                                      0                             0
 
-L2_MISS_CPU                                              12682707                      12682707
+L2_MISS_CPU                                                163418                        163418
 
 L2_MISS_GPU                                                     0                             0
 
@@ -44,7 +44,7 @@ L3_HIT_CPU                                                      0               
 
 L3_HIT_GPU                                                      0                             0
 
-L3_MISS_CPU                                              12682707                      12682707
+L3_MISS_CPU                                                163418                        163418
 
 L3_MISS_GPU                                                     0                             0
 
@@ -139,9 +139,9 @@ TM_COAL_INST_MUL_TRANS                                          0               
 DM_COAL_INST_MUL_TRANS                                          0                          NaN 
                                                                 0                           100%
 
-LD_NO_FORWARD                                             8080730                       94.2407%
-FORWARDED_LD                                               493836                       5.75931%
-                                                          8574566                           100%
+LD_NO_FORWARD                                              106422                       97.8638%
+FORWARDED_LD                                                 2323                       2.13619%
+                                                           108745                           100%
 
 MEM_STALL_CYCLE_CORE_0                                          0                             0
 
@@ -151,91 +151,7 @@ NUM_WRITE_ACKS_CORE_0                                           0               
 
 NUM_WRITES_CORE_0                                               0                             0
 
-ICACHE_HIT_CORE_0                                          625402                           100%
+ICACHE_HIT_CORE_0                                          585669                           100%
 ICACHE_MISS_CORE_0                                              0                             0%
-                                                           625402                           100%
-
-MEM_STALL_CYCLE_CORE_1                                          0                             0
-
-ICACHE_FILL_CORE_1                                              0                             0
-
-NUM_WRITE_ACKS_CORE_1                                           0                             0
-
-NUM_WRITES_CORE_1                                               0                             0
-
-ICACHE_HIT_CORE_1                                         5111601                           100%
-ICACHE_MISS_CORE_1                                              0                             0%
-                                                          5111601                           100%
-
-MEM_STALL_CYCLE_CORE_2                                          0                             0
-
-ICACHE_FILL_CORE_2                                              0                             0
-
-NUM_WRITE_ACKS_CORE_2                                           0                             0
-
-NUM_WRITES_CORE_2                                               0                             0
-
-ICACHE_HIT_CORE_2                                         5386754                           100%
-ICACHE_MISS_CORE_2                                              0                             0%
-                                                          5386754                           100%
-
-MEM_STALL_CYCLE_CORE_3                                          0                             0
-
-ICACHE_FILL_CORE_3                                              0                             0
-
-NUM_WRITE_ACKS_CORE_3                                           0                             0
-
-NUM_WRITES_CORE_3                                               0                             0
-
-ICACHE_HIT_CORE_3                                         5871656                           100%
-ICACHE_MISS_CORE_3                                              0                             0%
-                                                          5871656                           100%
-
-MEM_STALL_CYCLE_CORE_4                                          0                             0
-
-ICACHE_FILL_CORE_4                                              0                             0
-
-NUM_WRITE_ACKS_CORE_4                                           0                             0
-
-NUM_WRITES_CORE_4                                               0                             0
-
-ICACHE_HIT_CORE_4                                         6026648                           100%
-ICACHE_MISS_CORE_4                                              0                             0%
-                                                          6026648                           100%
-
-MEM_STALL_CYCLE_CORE_5                                          0                             0
-
-ICACHE_FILL_CORE_5                                              0                             0
-
-NUM_WRITE_ACKS_CORE_5                                           0                             0
-
-NUM_WRITES_CORE_5                                               0                             0
-
-ICACHE_HIT_CORE_5                                         6572503                           100%
-ICACHE_MISS_CORE_5                                              0                             0%
-                                                          6572503                           100%
-
-MEM_STALL_CYCLE_CORE_6                                          0                             0
-
-ICACHE_FILL_CORE_6                                              0                             0
-
-NUM_WRITE_ACKS_CORE_6                                           0                             0
-
-NUM_WRITES_CORE_6                                               0                             0
-
-ICACHE_HIT_CORE_6                                         7058021                           100%
-ICACHE_MISS_CORE_6                                              0                             0%
-                                                          7058021                           100%
-
-MEM_STALL_CYCLE_CORE_7                                          0                             0
-
-ICACHE_FILL_CORE_7                                              0                             0
-
-NUM_WRITE_ACKS_CORE_7                                           0                             0
-
-NUM_WRITES_CORE_7                                               0                             0
-
-ICACHE_HIT_CORE_7                                         7350013                           100%
-ICACHE_MISS_CORE_7                                              0                             0%
-                                                          7350013                           100%
+                                                           585669                           100%
 

@@ -59,7 +59,7 @@ namespace MCsim
 //			requestSchedulerTable["RTMem"] 			 = new RequestScheduler_RTMem(requestQueues, commandQueues, requestorTable, dataBus);
 			//requestSchedulerTable["FRFCFS_BACKEND"]  = new RequestScheduler_FRFCFS_BACKEND(requestQueues, commandQueues, requestorTable);
 			requestSchedulerTable["DUET"] 			 = new RequestScheduler_DUET(requestQueues, commandQueues, requestorTable);
-			//cout<<"after request scheduler"<<endl;
+			
 //			requestSchedulerTable["PMC"]			 = new RequestScheduler_PMC(requestQueues, commandQueues, requestorTable);
 //			requestSchedulerTable["MCMC"]			 = new RequestScheduler_MCMC(requestQueues, commandQueues, requestorTable, dataBus);
 //			requestSchedulerTable["MEDUSA"]		     = new RequestScheduler_MEDUSA(requestQueues, commandQueues, requestorTable);
@@ -68,13 +68,13 @@ namespace MCsim
 //			commandGeneratorTable["CLOSE"] 			 = new CommandGenerator_Close(dataBus,commandQueues);
 			//commandGeneratorTable["FRFCFS_BACKEND"]  = new CommandGenerator_FRFCFS_BACKEND(dataBus,commandQueues);
 			commandGeneratorTable["DUET"]		     = new CommandGenerator_DUET(dataBus,commandQueues,commandQueues_RT);
-			//cout<<"after command gene  "<<endl;
+			
 //			commandGeneratorTable["MCMC"] 			 = new CommandGenerator_MCMC(dataBus,commandQueues);s
 //			commandGeneratorTable["PipeCAS"]		 = new CommandGenerator_PipeCAS(dataBus,commandQueues,requestorTable);
 //			commandSchedulerTable["RTMem"] 			 = new CommandScheduler_RTMem(commandQueues, requestorTable);
 //			commandSchedulerTable["Round"] 			 = new CommandScheduler_Round(commandQueues, requestorTable);
 			commandSchedulerTable["DUET"]	 		 = new CommandScheduler_DUET(requestQueues,commandQueues, requestorTable, commandQueues_RT);
-			//cout<<"asfter command scheduler"<<endl;
+			
 			//commandSchedulerTable["FRFCFS"]			 = new CommandScheduler_FRFCFS(commandQueues, requestorTable);
 //			commandSchedulerTable["ORP"] 			 = new CommandScheduler_ORP(commandQueues, requestorTable);
 //			commandSchedulerTable["DCmc"] 			 = new CommandScheduler_DCmc(commandQueues, requestorTable);

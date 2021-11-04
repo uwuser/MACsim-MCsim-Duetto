@@ -39,7 +39,7 @@ namespace MCsim
 		}
 		float get_constraints(const string& parameter) 
 		{
-			//cout<<"inisde get constraint"<<endl;
+			
 			float param = 0;
 			if(parameter == "tCK") {
 				param = channel->spec->speed_entry.tCK;
@@ -48,7 +48,7 @@ namespace MCsim
 				param = channel->spec->speed_entry.nRCD;
 			}
 			else if(parameter == "tWL") {
-				//cout<<"inside WL"<<endl;
+			
 				param = channel->spec->speed_entry.nCWL;
 			}
 			else if(parameter == "tRL") {
@@ -274,19 +274,28 @@ namespace MCsim
 
 		void receiveFromBus(BusPacket* busPacket) 
 		{
-			// busPacket->rank
+			
+			
 			if(busPacket->postCommand) {
+			
 				postBuffer.push_back(new BusPacket(busPacket->busPacketType, busPacket->requestorID, busPacket->address, 
 					busPacket->column, busPacket->row, busPacket->bank, 0, busPacket->subArray, busPacket->data, busPacket->arriveTime));
+			
 				postCounter.push_back(get_constraints("tRCD"));
+			
 				return;
 			}			
 			if(busPacket->busPacketType != DATA) {
+			
 				commandTrace<<clockCycle<<" B"<<busPacket->bank<<" "<<busPacket->busPacketType<<"\n";
+			
 				convert_addr(busPacket);
+			
 				channel->update(convert_cmd(busPacket), addr_vec.data(), clockCycle);
 			}
+			
 			generateData(busPacket);
+			
 		}
 
 	private:

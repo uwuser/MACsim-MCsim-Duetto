@@ -49,19 +49,27 @@ unsigned int RequestScheduler::bufferSize(unsigned int qIndex){
 
 Request* RequestScheduler::scheduleFR_BACKEND(unsigned int qIndex, unsigned int reqIndex)
 {
+
 	for(unsigned int index=0; index < requestQueue[qIndex]->getSize(true, reqIndex); index++) {		
+
 	
 		if(requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index))){
-			if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){			
+
+			if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){
+
 				return requestQueue[qIndex]->getRequest(reqIndex,index, false);
 			}			
 		}	
 	}
+
 	for(unsigned int index=0; index < requestQueue[qIndex]->getSize(true, reqIndex); index++) {
+
 		if(isSchedulable(requestQueue[qIndex]->checkRequestIndex(reqIndex,index), requestQueue[0]->isRowHit(requestQueue[qIndex]->checkRequestIndex(reqIndex,index)),0)){
+
 			return requestQueue[qIndex]->getRequest(reqIndex,index, false);
 		}
 	}	
+
 	return NULL;
 }
 bool RequestScheduler::isSchedulable(Request* request, bool open, bool mode)
@@ -79,6 +87,7 @@ bool RequestScheduler::isSchedulable(Request* request, bool open, bool mode)
 		else {
 			 TRACE_REQ("TRACE-REQUEST:WRITE"<<"\t\t"<<clockCycle<<":"<<"\t\tAddress: "<<request->address<<"\t\tBank: "<<request->bank<<"\t\tColumn: "<<request->col<<"\t\tRow: "<<request->row);}								
 	}
+	
 	return commandGenerator->commandGenerate(request, open, mode);
 }
 

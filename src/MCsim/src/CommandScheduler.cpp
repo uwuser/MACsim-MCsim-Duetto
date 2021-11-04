@@ -123,8 +123,7 @@ bool CommandScheduler::isReady(BusPacket* cmd, unsigned int index) // Each comma
 		if(cmdQueueTimer.find(index) == cmdQueueTimer.end()) {
 			cmdQueueTimer[index] = map<unsigned int, unsigned int>();
 		}
-		if(cmdQueueTimer[index].find(cmd->busPacketType) != cmdQueueTimer[index].end()) {
-			//cout<<"type is   "<<cmd->busPacketType<<"    +++++++++++++++++++++++++++++++++++++++++++++   "<<cmdQueueTimer[index][cmd->busPacketType]<<"        +++++++++++++++++++++++++++++++++++++++++++++++++++++++++"<<endl;
+		if(cmdQueueTimer[index].find(cmd->busPacketType) != cmdQueueTimer[index].end()) {		
 			if(cmdQueueTimer[index][cmd->busPacketType] != 1){ // changed for the dual mode requirement	
 				return false;
 			}
@@ -152,8 +151,10 @@ bool CommandScheduler::isIssuableRefresh(BusPacket* cmd)
 }
 void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypass) // Send the actual command to the device
 {
+	
 	// Update command counter
-	if(commandQueue[index]->isPerRequestor()) {
+	if(commandQueue[index]->isPerRequestor()) 
+	{		
 		for(unsigned int type = RD; type != PDE; type++) {
 			reqCmdQueueTimer[index][cmd->requestorID][type] = std::max(reqCmdQueueTimer[index][cmd->requestorID][type], 
 			memoryDevice->command_timing(cmd, static_cast<BusPacketType>(type)));
@@ -198,7 +199,26 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 				cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}								
 		}
 		*/
-		commandQueue[index]->removeCommand(cmd->requestorID);
+		
+		//commandQueue[index]->removeCommand(cmd->requestorID);
+		if(cmd->busPacketType > WRA)
+		{
+			
+			// if(commandQueue[index]->getRequestorSize(cmd->requestorID,false) > 0)
+			
+			if(cmd->address == commandQueue[index]->getRequestorCommand(cmd->requestorID,false)->address && cmd->busPacketType == commandQueue[index]->getRequestorCommand(cmd->requestorID,false)->busPacketType && cmd->requestorID == commandQueue[index]->getRequestorCommand(cmd->requestorID,false)->requestorID)
+			{
+			
+				commandQueue[index]->removeCommand(cmd->requestorID,false);	
+			}
+			
+			if(cmd->address == commandQueue_RT[index]->getRequestorCommand(cmd->requestorID,true)->address && cmd->busPacketType == commandQueue_RT[index]->getRequestorCommand(cmd->requestorID,true)->busPacketType && cmd->requestorID == commandQueue_RT[index]->getRequestorCommand(cmd->requestorID,true)->requestorID){
+			
+				commandQueue_RT[index]->removeCommand(cmd->requestorID,true);	
+
+			}
+			
+		}
 	}
 	else {
 		if(!bypass)
@@ -206,7 +226,7 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 			for(unsigned int type = RD; type != PDE; type++) {
 				cmdQueueTimer[index][type] = std::max(cmdQueueTimer[index][type], 
 					memoryDevice->command_timing(cmd, static_cast<BusPacketType>(type)));
-			
+					
 			}	
 			if(cmd->busPacketType > WRA){
 				if(cmd->address == commandQueue[index]->getCommand(true)->address && cmd->busPacketType ==commandQueue[index]->getCommand(true)->busPacketType )
@@ -223,48 +243,51 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 					memoryDevice->command_timing(cmd, static_cast<BusPacketType>(type)));
 			}
 		}
-		// For the command trace option
+		/*
+		For the command trace option
 		
-		// if(cmd->busPacketType == PRE)						
-		// {
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:PRE"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		}
-		// 	else {
-		// 		cout<<"TRACE-COMMAND:PRE"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}															
-		// }
-		// else if(cmd->busPacketType == RD){
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:RD"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		
-		// 	}										
-		// 	else { 
-		// 		cout<<"TRACE-COMMAND:RD"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}	
-		// }
-		// else if(cmd->busPacketType == WR){
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:WR"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
-		// 	else {
-		// 		cout<<"TRACE-COMMAND:WR"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}	
-		// }
-		// else if(cmd->busPacketType == WRA){
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:WRA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
-		// 	else {
-		// 		cout<<"TRACE-COMMAND:WRA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}									
-		// }
-		// else if(cmd->busPacketType == RDA){
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:RDA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
-		// 	else {
-		// 		cout<<"TRACE-COMMAND:RDA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}									
-		// }
-		// else if(cmd->busPacketType == ACT || cmd->busPacketType == ACT_R || cmd->busPacketType == ACT_W){
-		// 	if(cmd->address > 999999){
-		// 		cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		}
-		// 	else {
-		// 		cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}						
-		// }
+		if(cmd->busPacketType == PRE)						
+		{
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:PRE"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		}
+			else {
+				cout<<"TRACE-COMMAND:PRE"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}															
+		}
+		else if(cmd->busPacketType == RD){
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:RD"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		
+			}										
+			else { 
+				cout<<"TRACE-COMMAND:RD"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}	
+		}
+		else if(cmd->busPacketType == WR){
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:WR"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
+			else {
+				cout<<"TRACE-COMMAND:WR"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}	
+		}
+		else if(cmd->busPacketType == WRA){
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:WRA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
+			else {
+				cout<<"TRACE-COMMAND:WRA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}									
+		}
+		else if(cmd->busPacketType == RDA){
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:RDA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;												}
+			else {
+				cout<<"TRACE-COMMAND:RDA"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}									
+		}
+		else if(cmd->busPacketType == ACT || cmd->busPacketType == ACT_R || cmd->busPacketType == ACT_W){
+			if(cmd->address > 999999){
+				cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;		}
+			else {
+				cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}						
+		}
+		*/
 			
 	}
+	
 	memoryDevice->receiveFromBus(scheduledCommand);
 }
 void CommandScheduler::commandClear()
@@ -298,5 +321,6 @@ void CommandScheduler::tick()
 		}
 	}
 	refreshMachine->step();
+	
 	clock++;
 }

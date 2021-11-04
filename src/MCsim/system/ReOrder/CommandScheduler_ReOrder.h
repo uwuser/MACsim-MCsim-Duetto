@@ -44,7 +44,7 @@ namespace MCsim
 
 		BusPacket* commandSchedule()
 		{
-//cout<<"commandscheduer"<<endl;
+
 			scheduledCommand = NULL;
 			for(unsigned int index = 0; index < commandQueue.size(); index++) { 			// Scan the command queue for ready CAS
 				checkCommand = NULL;
@@ -182,6 +182,7 @@ namespace MCsim
 					}
 				}
 				queuePending[commandRegisters[registerIndex].second] = false;
+
 				sendCommand(scheduledCommand, commandRegisters[registerIndex].second, false);
 				// Virtual Channel
 				if(requestorCriticalTable.at(scheduledCommand->requestorID) == false) {
@@ -194,6 +195,7 @@ namespace MCsim
 					for(unsigned int index=0; index<srtFIFO.size(); index++) {
 						if(isIssuable(srtFIFO[index].first)) {
 							scheduledCommand = srtFIFO[index].first;
+
 							sendCommand(scheduledCommand, srtFIFO[index].second, false);
 							queuePending[srtFIFO[index].second] = false;
 							srtFIFO.erase(srtFIFO.begin() + index);

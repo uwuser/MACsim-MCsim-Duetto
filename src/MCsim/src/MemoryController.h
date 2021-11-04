@@ -37,7 +37,7 @@ namespace MCsim
 		void setRequestor(unsigned int id, bool criticality);
 		void connectMemoryDevice(MemoryDevice* memDev);
 		//void connectMemorySystem(MemorySystem* memSys);
-		bool addRequest(unsigned int requestorID, unsigned long long address, bool R_W, unsigned int size);
+		bool addRequest(unsigned int requestorID, uint64_t address, bool R_W, unsigned int size);
 		void receiveData(BusPacket *bpacket);
 		void flushWrite(bool sw);
 		void update();
