@@ -66,6 +66,7 @@ namespace MCsim
 		unsigned int tRP;
 		unsigned int wcl;
 		int N;
+		string impl;
 		int suspect_requestor;
 		bool suspect_flag;
 		int front_has_pre;
@@ -104,8 +105,9 @@ namespace MCsim
 			N = 0;
 			bank_count = 8;		  /***** SHOULD  BE CONFIGURED *****/
 			init_deadline = 161;  /***** SHOULD  BE CONFIGURED *****/
-			mode = "HPA";
+			mode  = "HPA";
 			start = true;
+			impl  =  "B"; 
 			//sharedBank.push_back(7);  					 /***** SHOULD  BE CONFIGURED *****/
 			//sharedBank.push_back();  						 /***** SHOULD  BE CONFIGURED *****/
 			//sharedBank.push_back();  						 /***** SHOULD  BE CONFIGURED *****/
@@ -170,7 +172,7 @@ namespace MCsim
 
 			return oldest_1;
 		}
-		bool req_notempty(unsigned int reqID)
+		bool reqNotEmpty(unsigned int reqID)
 		{
 			// return true if at least one command exists for reqID 
 			for (unsigned int i = 0; i < commandQueue_RT.size(); i++)
@@ -186,7 +188,7 @@ namespace MCsim
 
 			return false;
 		}
-		bool is_blocked(BusPacket *cmd)
+		bool isBlocked(BusPacket *cmd)
 		{
 			//  if there is another oldest request to the same bank
 			for (unsigned int loop = 0; loop < Order.size(); loop++)
@@ -199,7 +201,7 @@ namespace MCsim
 			}
 			return false;
 		}
-		bool is_Shared(unsigned int index)
+		bool isShared(unsigned int index)
 		{
 			for (int i = 0; i < sharedBank.size(); i++)
 			{
@@ -211,7 +213,7 @@ namespace MCsim
 			}
 			return false;
 		}
-		void set_deadline()
+		void setDeadline()
 		{
 			// Set the deadline to each requestor in the system - this represents the deadline for the oldest request of each requestor
 			// It works only on the RT command queue obviously
@@ -244,9 +246,9 @@ namespace MCsim
 				}
 			}
 		}
-		unsigned int actual_wcl(unsigned int requestor, BusPacket *cmd)
+		unsigned int WCLator(unsigned int requestor, BusPacket *cmd)
 		{
-
+			//cout<<"Schedule"<<endl;
 			/***** DDR3 1600 H *****/
 			unsigned int LACT[16] = {9, 15, 21, 27, 34, 40, 46, 52, 59, 65, 71, 77, 84, 90, 96, 102};
 			unsigned int LPRE[16] = {2, 3, 6, 7, 9, 11, 13, 14, 17, 18, 19, 22, 23, 26, 27, 29};
@@ -265,28 +267,31 @@ namespace MCsim
 					N = i;
 			}
 
-			if (cmd != NULL) // number of requestors that are higher priority than "requestor"  -- if the cmd is CAS, it changes the order, then we track updated Order
-			{
-
-				if (cmd->busPacketType == RD || cmd->busPacketType == WR)
+			
+			if(impl == "C") {
+				if (cmd != NULL) // number of requestors that are higher priority than "requestor"  -- if the cmd is CAS, it changes the order, then we track updated Order
 				{
-					for (unsigned int h = 0; h < Order_temp.size(); h++)
+
+					if (cmd->busPacketType == RD || cmd->busPacketType == WR)
 					{
-						if (Order_temp.at(h) == cmd->requestorID)
+						for (unsigned int h = 0; h < Order_temp.size(); h++)
 						{
-							Order_temp.erase(Order_temp.begin() + h);
-							Order_temp.push_back(cmd->requestorID);
-							break;
+							if (Order_temp.at(h) == cmd->requestorID)
+							{
+								Order_temp.erase(Order_temp.begin() + h);
+								Order_temp.push_back(cmd->requestorID);
+								break;
+							}
 						}
-					}
-					for (unsigned int i = 0; i < Order_temp.size(); i++)
-					{
-						if (Order_temp.at(i) == requestor)
-							N = i; // number of requestors that are ahead of this specific requestor
+						for (unsigned int i = 0; i < Order_temp.size(); i++)
+						{
+							if (Order_temp.at(i) == requestor)
+								N = i; // number of requestors that are ahead of this specific requestor
+						}
 					}
 				}
 			}
-			
+
 			for (unsigned int traverse = 0; traverse < N; traverse++) // number of requestors that are higher priority than "requestor" and has PRE
 			{
 				oldest_3 = NULL;
@@ -358,18 +363,890 @@ namespace MCsim
 				LPRE[N - 1] = 0;
 				LACT[N - 1] = 0;
 			}
-
-			if (req_statues_flag[requestor] == true)
-			{
-
-				if (req_open[requestor] == true)
+			unsigned int tempLatency = 0;
+			if(impl == "B") {				
+				if (req_statues_flag[requestor] == true)
 				{
-
-					if (req_notempty(requestor))
+					if (req_open[requestor] == true)
 					{
+						if (reqNotEmpty(requestor))
+						{
+							if (return_oldest(requestor)->busPacketType == RD)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+								
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+								
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+																	
+								temp_timer[requestor] = tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+							}
+							else if (return_oldest(requestor)->busPacketType == WR)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+						
+								temp_timer[requestor] = tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							
+							}
+						}
+					}
+					else if (req_open[requestor] == false)
+					{
+						if (return_oldest(requestor)->busPacketType == PRE)
+						{
+							req_open[requestor] = false;
+						
+							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+					
+									
+							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) +
+															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;							
+						
+							temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+						
+							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+						
+								
+							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;								
+						
+						}
+						else if (return_oldest(requestor)->busPacketType == ACT)
+						{
+							
+							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+						
+							temp_timer[requestor] = tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+						
+							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;							
+							
+						}
+						else if (return_oldest(requestor)->busPacketType == RD)
+						{
+						
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
 
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							temp_timer[requestor] = tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+						
+						}
+						else if (return_oldest(requestor)->busPacketType == WR)
+						{
+						
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;		
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tRTW + front_has_rd * tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							temp_timer[requestor] = tWL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+							
+						}
+					}
+				}
+				else if (req_statues_flag[requestor] == false)
+				{
+					if (reqNotEmpty(requestor))
+					{
+						req_statues_flag[requestor] = true;
 						if (return_oldest(requestor)->busPacketType == RD)
 						{
+							req_open[requestor] = true;
+							
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;		
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+						
+								temp_timer[requestor] = tRL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+						
+						}
+						else if (return_oldest(requestor)->busPacketType == WR)
+						{
+							req_open[requestor] = true;
+							// if (cmd == NULL)
+							// {
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								if (CAStimer == 0)
+									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								else
+									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;		
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							// }
+							// else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
+							// {
+								// if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								// {
+								// 	if (CAStimer == 0)
+								// 		temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								// 	else
+								// 		temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								// }
+								// else
+								// {
+								// 	temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								// }
+							// }
+							// else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
+							// {
+							// 	if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							// 	{
+							// 		if (CAStimer == 0)
+							// 			temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+							// 		else
+							// 			temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+							// 	}
+							// 	else
+							// 	{
+							// 		temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+							// 	}
+							// }
+							// else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
+							// {
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							// }
+							// else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
+							// {
+							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							{
+								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+								temp_timer[requestor] = 0;	
+							}
+							// }
+							// else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
+							// {
+							temp_timer[requestor] = tWL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+							// }
+						}
+						else if (return_oldest(requestor)->busPacketType == PRE) // done modifications
+						{
+							req_open[requestor] = false;
+							
+							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;																
+								
+							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+								
+							temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+							
+							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;	
+							
+							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+							
+							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
+							temp_timer[requestor] = 0;
+							
+						}
+					}
+					else
+					{
+						temp_timer[requestor] = 0;
+						tempLatency = temp_timer[requestor];
+					}
+				}
+			}
+			else if(impl == "C") 
+			{
+				if (req_statues_flag[requestor] == true)
+				{
+
+					if (req_open[requestor] == true)
+					{
+
+						if (reqNotEmpty(requestor))
+						{
+
+							if (return_oldest(requestor)->busPacketType == RD)
+							{
+								if (cmd == NULL)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
+								{
+									temp_timer[requestor] = tRL + tBUS;
+								}
+							}
+							else if (return_oldest(requestor)->busPacketType == WR)
+							{
+								if (cmd == NULL)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										if (CAStimer == 0)
+											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+										else
+											temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
+								{
+									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									{
+										temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									}
+									else
+									{
+										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									}
+								}
+								else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
+								{
+									temp_timer[requestor] = tWL + tBUS;
+								}
+							}
+						}
+					}
+					else if (req_open[requestor] == false)
+					{
+						if (return_oldest(requestor)->busPacketType == PRE)
+						{
+							if (cmd != NULL)
+							{
+								if (cmd->requestorID == requestor)
+								{
+									if (cmd->busPacketType == RD)
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+									if (cmd->busPacketType == WR)
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) +
+																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+									else
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+								}
+								else
+								{
+									req_open[requestor] = false;
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else
+							{
+								req_open[requestor] = false;
+								if (isReadyTimer(return_oldest(requestor), requestor) > 0)
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+							}
+						}
+						else if (return_oldest(requestor)->busPacketType == ACT)
+						{
+							if (cmd != NULL)
+							{
+								if (requestor != cmd->requestorID)
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else
+							{
+								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							}
+						}
+						else if (return_oldest(requestor)->busPacketType == RD)
+						{
+							if (cmd == NULL)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+									;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
+							{
+								temp_timer[requestor] = tRL + tBUS;
+							}
+						}
+
+						else if (return_oldest(requestor)->busPacketType == WR)
+						{
+							if (cmd == NULL)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									if (CAStimer == 0)
+										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+									else
+										temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tRTW + front_has_rd * tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
+							{
+								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								{
+									temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
+								}
+								else
+								{
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								}
+							}
+							else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
+							{
+								temp_timer[requestor] = tWL + tBUS;
+							}
+						}
+					}
+				}
+				else if (req_statues_flag[requestor] == false)
+				{
+
+					if (reqNotEmpty(requestor))
+					{
+
+						req_statues_flag[requestor] = true;
+						if (return_oldest(requestor)->busPacketType == RD)
+						{
+							req_open[requestor] = true;
 							if (cmd == NULL)
 							{
 								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
@@ -441,6 +1318,7 @@ namespace MCsim
 						}
 						else if (return_oldest(requestor)->busPacketType == WR)
 						{
+							req_open[requestor] = true;
 							if (cmd == NULL)
 							{
 								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
@@ -510,410 +1388,53 @@ namespace MCsim
 								temp_timer[requestor] = tWL + tBUS;
 							}
 						}
-					}
-				}
-				else if (req_open[requestor] == false)
-				{
-					if (return_oldest(requestor)->busPacketType == PRE)
-					{
-						if (cmd != NULL)
+						else if (return_oldest(requestor)->busPacketType == PRE) // done modifications
 						{
-							if (cmd->requestorID == requestor)
+							if (cmd != NULL)
 							{
-								if (cmd->busPacketType == RD)
+								if (cmd->requestorID == requestor)
 								{
-									req_open[requestor] = false;
-									temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
-															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								}
-								if (cmd->busPacketType == WR)
-								{
-									req_open[requestor] = false;
-									temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) +
-															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								}
-								else
-								{
-									req_open[requestor] = false;
-									temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								}
-							}
-							else
-							{
-								req_open[requestor] = false;
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else
-						{
-							req_open[requestor] = false;
-							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
-						}
-					}
-					else if (return_oldest(requestor)->busPacketType == ACT)
-					{
-						if (cmd != NULL)
-						{
-							if (requestor != cmd->requestorID)
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else
-						{
-							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-						}
-					}
-					else if (return_oldest(requestor)->busPacketType == RD)
-					{
-						if (cmd == NULL)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-								;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
-						{
-							temp_timer[requestor] = tRL + tBUS;
-						}
-					}
-
-					else if (return_oldest(requestor)->busPacketType == WR)
-					{
-						if (cmd == NULL)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tRTW + front_has_rd * tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
-						{
-							temp_timer[requestor] = tWL + tBUS;
-						}
-					}
-				}
-			}
-			else if (req_statues_flag[requestor] == false)
-			{
-
-				if (req_notempty(requestor))
-				{
-
-					req_statues_flag[requestor] = true;
-					if (return_oldest(requestor)->busPacketType == RD)
-					{
-						req_open[requestor] = true;
-						if (cmd == NULL)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
-						{
-							temp_timer[requestor] = tRL + tBUS;
-						}
-					}
-					else if (return_oldest(requestor)->busPacketType == WR)
-					{
-						req_open[requestor] = true;
-						if (cmd == NULL)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								if (CAStimer == 0)
-									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-								else
-									temp_timer[requestor] = CAStimer + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
-						{
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
-							{
-								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
-							}
-							else
-							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
-							}
-						}
-						else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
-						{
-							temp_timer[requestor] = tWL + tBUS;
-						}
-					}
-					else if (return_oldest(requestor)->busPacketType == PRE) // done modifications
-					{
-						if (cmd != NULL)
-						{
-							if (cmd->requestorID == requestor)
-							{
-								if (cmd->busPacketType == RD)
-								{
-									req_open[requestor] = false;
-									temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
-															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								}
-								if (cmd->busPacketType == WR)
-								{
-									req_open[requestor] = false;
-									temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									if (cmd->busPacketType == RD)
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+									if (cmd->busPacketType == WR)
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
+									else
+									{
+										req_open[requestor] = false;
+										temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									}
 								}
 								else
 								{
 									req_open[requestor] = false;
-									temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else
 							{
 								req_open[requestor] = false;
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								if (isReadyTimer(return_oldest(requestor), requestor) > 0)
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
+									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
 							}
 						}
-						else
-						{
-							req_open[requestor] = false;
-							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
-						}
+					}
+					else
+					{
+						temp_timer[requestor] = 0;
 					}
 				}
-				else
-				{
-					temp_timer[requestor] = 0;
-				}
+				tempLatency = temp_timer[requestor];
 			}
-
-			return temp_timer[requestor];
+			return tempLatency;
 		}
 
 		BusPacket *commandSchedule()
@@ -936,7 +1457,6 @@ namespace MCsim
 			// send the command decided in the previous cycle from the register and remove from both queues
 			if (mode == "RTA" && clock != 1)
 			{
-
 				if (scheduledCommand_RTA != NULL)
 				{
 					rta_count++;
@@ -990,7 +1510,7 @@ namespace MCsim
 				}
 			}
 
-			set_deadline();
+			setDeadline();
 
 			for (unsigned int i = 0; i < REQ_count; i++)
 			{
@@ -1195,9 +1715,9 @@ namespace MCsim
 				for (unsigned int index = 0; index < REQ_count; index++)
 				{
 
-					if (actual_wcl(index, scheduledCommand_HPA) >= service_deadline[index])
+					if (WCLator(index, scheduledCommand_HPA) >= service_deadline[index])
 					{
-						//cout<<"-----------------------------------------SWITCH TO RTA-------------------------------------------- Becaus of "<<index<<" latency "<<actual_wcl(index,scheduledCommand_HPA)<<endl;
+						//cout<<"-----------------------------------------SWITCH TO RTA-------------------------------------------- Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
 						suspect_requestor = index;
 						suspect_flag = true;
 						mode = "RTA";
@@ -1211,14 +1731,14 @@ namespace MCsim
 				for (unsigned int index = 0; index < REQ_count; index++)
 				{
 
-					if (actual_wcl(index, scheduledCommand_HPA) < service_deadline[index])
+					if (WCLator(index, scheduledCommand_HPA) < service_deadline[index])
 					{
-						//cout<<"-----------------------------------------SWITCH TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<actual_wcl(index,scheduledCommand_HPA)<<endl;
+						//cout<<"-----------------------------------------SWITCH TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
 						mode = "HPA";
 					}
 					else
 					{
-						//cout<<"-----------------------------------------REMAIN TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<actual_wcl(index,scheduledCommand_HPA)<<endl;
+						//cout<<"-----------------------------------------REMAIN TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
 						mode = "RTA";
 						break;
 					}
@@ -1247,7 +1767,7 @@ namespace MCsim
 					{
 						checkCommand = NULL;
 
-						if (!(is_Shared(index)))
+						if (!(isShared(index)))
 						{
 							if (commandQueue_RT[index]->getRequestorSize(num, true) > 0 && queuePending[index] == false)
 							{
@@ -1298,7 +1818,7 @@ namespace MCsim
 							bool isServed = true;
 
 							isServed = servedFlags[commandRegisters[index].second];
-							if (isServed == false && checkCommand->busPacketType == roundType && !(is_blocked(checkCommand)))
+							if (isServed == false && checkCommand->busPacketType == roundType && !(isBlocked(checkCommand)))
 							{
 								if (checkCommand->address == return_oldest(checkCommand->requestorID)->address && checkCommand->busPacketType == return_oldest(checkCommand->requestorID)->busPacketType)
 								{
@@ -1372,11 +1892,11 @@ namespace MCsim
 									{
 										if (checkCommand->requestorID == Order.at(loop))
 										{
-											if (isIssuable(checkCommand) && !(is_blocked(checkCommand)))
+											if (isIssuable(checkCommand) && !(isBlocked(checkCommand)))
 											{
 												if (checkCommand->address == return_oldest(checkCommand->requestorID)->address && checkCommand->busPacketType == return_oldest(checkCommand->requestorID)->busPacketType)
 												{
-													if (active_shared_exist == false || !(is_Shared(checkCommand->bank)))
+													if (active_shared_exist == false || !(isShared(checkCommand->bank)))
 													{
 														scheduledCommand_RTA = checkCommand;
 														registerIndex = index;
@@ -1421,10 +1941,10 @@ namespace MCsim
 										{
 											if (checkCommand->requestorID == Order.at(loop))
 											{
-												if (isIssuable(checkCommand) && !(is_blocked(checkCommand)))
+												if (isIssuable(checkCommand) && !(isBlocked(checkCommand)))
 												{
 
-													if (active_shared_exist == false || !(is_Shared(checkCommand->bank)))
+													if (active_shared_exist == false || !(isShared(checkCommand->bank)))
 													{
 														scheduledCommand_RTA = checkCommand;
 														registerIndex = index;
@@ -1466,9 +1986,9 @@ namespace MCsim
 								checkCommand = commandRegisters[index].first;
 								if (isIssuable(checkCommand) && checkCommand->requestorID == Order.at(loop))
 								{
-									if (!is_blocked(checkCommand))
+									if (!isBlocked(checkCommand))
 									{
-										if (!(is_Shared(checkCommand->bank)))
+										if (!(isShared(checkCommand->bank)))
 										{
 											scheduledCommand_RTA = checkCommand;
 											registerIndex = index;
@@ -1506,7 +2026,7 @@ namespace MCsim
 								checkCommand = commandRegisters[index].first;
 								if (isIssuable(checkCommand) && checkCommand->requestorID == Order.at(loop))
 								{
-									if (!is_blocked(checkCommand))
+									if (!isBlocked(checkCommand))
 									{
 										scheduledCommand_RTA = checkCommand;
 										registerIndex = index;
