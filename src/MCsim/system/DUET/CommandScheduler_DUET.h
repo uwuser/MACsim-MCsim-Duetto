@@ -42,6 +42,10 @@ namespace MCsim
 		unsigned long long total_write;
 		std::map<unsigned int, unsigned int> temp_timer;
 		unsigned int init_deadline;
+		unsigned int init_deadline_CR;
+		unsigned int init_deadline_CW;
+		unsigned int init_deadline_OR;
+		unsigned int init_deadline_OW;
 		unsigned int indexCAS;
 		unsigned int indexACT;
 		unsigned int indexPRE;
@@ -104,10 +108,15 @@ namespace MCsim
 			suspect_flag = false;
 			N = 0;
 			bank_count = 8;		  /***** SHOULD  BE CONFIGURED *****/
-			init_deadline = 161;  /***** SHOULD  BE CONFIGURED *****/
+			init_deadline = 150;  /***** SHOULD  BE CONFIGURED *****/
+			init_deadline_CR = 150;
+			init_deadline_CW = 150;
+			init_deadline_OR = 150;
+			init_deadline_OW = 150;
+
 			mode  = "HPA";
 			start = true;
-			impl  =  "B"; 
+			impl  =  "C"; 
 			//sharedBank.push_back(7);  					 /***** SHOULD  BE CONFIGURED *****/
 			//sharedBank.push_back();  						 /***** SHOULD  BE CONFIGURED *****/
 			//sharedBank.push_back();  						 /***** SHOULD  BE CONFIGURED *****/
@@ -130,7 +139,7 @@ namespace MCsim
 				order_flag.push_back(false);
 			
 		}
-		BusPacket *return_oldest(unsigned int reqID) 
+		BusPacket *returnOldest(unsigned int reqID) 
 		{
 			// return the oldest command of the requestor reqID
 			oldest_1 = NULL;
@@ -195,7 +204,7 @@ namespace MCsim
 			{
 				if (Order.at(loop) != cmd->requestorID)
 				{
-					if (return_oldest(Order.at(loop))->bank == cmd->bank)
+					if (returnOldest(Order.at(loop))->bank == cmd->bank)
 						return true;
 				}
 			}
@@ -226,8 +235,47 @@ namespace MCsim
 					if (commandQueue_RT[index]->getRequestorSize(num, true) > 0) // Return the buffer size of the requestor
 					{
 						if (deadline_set_flag[num] == false)
-						{
-							service_deadline[num] = init_deadline;
+						{							
+							///////////////
+							if(clock != 1) 
+							{
+						
+								if(commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == PRE) 
+								{
+						
+									if (commandQueue_RT[index]->getRequestorCommand_position(num, 2, true)->busPacketType == RD) 
+									{
+						
+										service_deadline[num] = init_deadline_CR;
+									}
+									else if (commandQueue_RT[index]->getRequestorCommand_position(num, 2, true)->busPacketType == WR) 
+									{
+									
+										service_deadline[num] = init_deadline_CW;
+									}
+								}
+								else
+								{
+									
+									if (commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == RD) 
+									{
+									
+										service_deadline[num] = init_deadline_OR;
+									}
+									else if (commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == WR) 
+									{
+									
+										service_deadline[num] = init_deadline_OW;
+									}
+								}
+							}
+							else {
+								
+								service_deadline[num] = init_deadline;
+							}
+							
+							//////////////
+							
 							deadline_track[num] = clock;
 							deadline_set_flag[num] = true;
 							Order.push_back(num);
@@ -295,7 +343,7 @@ namespace MCsim
 			for (unsigned int traverse = 0; traverse < N; traverse++) // number of requestors that are higher priority than "requestor" and has PRE
 			{
 				oldest_3 = NULL;
-				oldest_3 = return_oldest(Order_temp.at(traverse));
+				oldest_3 = returnOldest(Order_temp.at(traverse));
 				if (oldest_3 != NULL)
 				{
 					if (oldest_3->busPacketType == PRE)
@@ -305,7 +353,7 @@ namespace MCsim
 			for (unsigned int traverse = 0; traverse < N; traverse++) // number of requestors that are higher priority than "requestor" and has ACT
 			{
 				oldest_3 = NULL;
-				oldest_3 = return_oldest(Order_temp.at(traverse));
+				oldest_3 = returnOldest(Order_temp.at(traverse));
 				if (oldest_3 != NULL)
 				{
 					if (oldest_3->busPacketType == ACT)
@@ -320,7 +368,7 @@ namespace MCsim
 			for (unsigned int traverse = 0; traverse < N; traverse++) // number of requestors that are higher priority than "requestor" and has RD
 			{
 				oldest_3 = NULL;
-				oldest_3 = return_oldest(Order_temp.at(traverse));
+				oldest_3 = returnOldest(Order_temp.at(traverse));
 				if (oldest_3 != NULL)
 				{
 					if (oldest_3->busPacketType == RD)
@@ -340,7 +388,7 @@ namespace MCsim
 			for (unsigned int traverse = 0; traverse < N; traverse++) // number of requestors that are higher priority than "requestor" and has WR
 			{
 				oldest_3 = NULL;
-				oldest_3 = return_oldest(Order_temp.at(traverse));
+				oldest_3 = returnOldest(Order_temp.at(traverse));
 				if (oldest_3 != NULL)
 				{
 					if (oldest_3->busPacketType == WR)
@@ -371,9 +419,9 @@ namespace MCsim
 					{
 						if (reqNotEmpty(requestor))
 						{
-							if (return_oldest(requestor)->busPacketType == RD)
+							if (returnOldest(requestor)->busPacketType == RD)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -382,12 +430,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 								
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -396,12 +444,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 								
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -410,30 +458,30 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
@@ -443,9 +491,9 @@ namespace MCsim
 								temp_timer[requestor] = 0;
 							
 							}
-							else if (return_oldest(requestor)->busPacketType == WR)
+							else if (returnOldest(requestor)->busPacketType == WR)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -454,12 +502,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -468,12 +516,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -482,29 +530,29 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
@@ -518,17 +566,17 @@ namespace MCsim
 					}
 					else if (req_open[requestor] == false)
 					{
-						if (return_oldest(requestor)->busPacketType == PRE)
+						if (returnOldest(requestor)->busPacketType == PRE)
 						{
 							req_open[requestor] = false;
 						
-							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+							temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;
 					
 									
-							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) +
+							temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) +
 															LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;							
@@ -537,23 +585,23 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;
 						
-							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;
 						
 								
-							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+							if (isReadyTimer(returnOldest(requestor), requestor) > 0)
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							else if (isReadyTimer(returnOldest(requestor), requestor) == 0)
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;								
 						
 						}
-						else if (return_oldest(requestor)->busPacketType == ACT)
+						else if (returnOldest(requestor)->busPacketType == ACT)
 						{
 							
-							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;
 						
@@ -561,15 +609,15 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;	
 						
-							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;							
 							
 						}
-						else if (return_oldest(requestor)->busPacketType == RD)
+						else if (returnOldest(requestor)->busPacketType == RD)
 						{
 						
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -581,11 +629,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -593,11 +641,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -605,7 +653,7 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							}
@@ -614,10 +662,10 @@ namespace MCsim
 							temp_timer[requestor] = 0;
 						
 						}
-						else if (return_oldest(requestor)->busPacketType == WR)
+						else if (returnOldest(requestor)->busPacketType == WR)
 						{
 						
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -629,11 +677,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -645,11 +693,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -661,11 +709,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tRTW + front_has_rd * tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -673,11 +721,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -685,7 +733,7 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
@@ -701,11 +749,11 @@ namespace MCsim
 					if (reqNotEmpty(requestor))
 					{
 						req_statues_flag[requestor] = true;
-						if (return_oldest(requestor)->busPacketType == RD)
+						if (returnOldest(requestor)->busPacketType == RD)
 						{
 							req_open[requestor] = true;
 							
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -717,12 +765,12 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
 							
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -730,11 +778,11 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -742,7 +790,7 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
@@ -752,12 +800,12 @@ namespace MCsim
 								temp_timer[requestor] = 0;	
 						
 						}
-						else if (return_oldest(requestor)->busPacketType == WR)
+						else if (returnOldest(requestor)->busPacketType == WR)
 						{
 							req_open[requestor] = true;
 							// if (cmd == NULL)
 							// {
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								if (CAStimer == 0)
 									temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -769,14 +817,14 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
 							// }
 							// else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 							// {
-								// if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								// if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								// {
 								// 	if (CAStimer == 0)
 								// 		temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -785,12 +833,12 @@ namespace MCsim
 								// }
 								// else
 								// {
-								// 	temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								// 	temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								// }
 							// }
 							// else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 							// {
-							// 	if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							// 	if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							// 	{
 							// 		if (CAStimer == 0)
 							// 			temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -799,12 +847,12 @@ namespace MCsim
 							// 	}
 							// 	else
 							// 	{
-							// 		temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+							// 		temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 							// 	}
 							// }
 							// else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 							// {
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -812,14 +860,14 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
 							// }
 							// else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 							// {
-							if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+							if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 							{
 								temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
@@ -827,7 +875,7 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 								temp_timer[requestor] = 0;	
 							}
@@ -839,16 +887,16 @@ namespace MCsim
 							temp_timer[requestor] = 0;	
 							// }
 						}
-						else if (return_oldest(requestor)->busPacketType == PRE) // done modifications
+						else if (returnOldest(requestor)->busPacketType == PRE) // done modifications
 						{
 							req_open[requestor] = false;
 							
-							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+							temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;																
 								
-							temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;	
 								
@@ -856,14 +904,14 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;	
 							
-							temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;	
 							
-							if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-							else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+							if (isReadyTimer(returnOldest(requestor), requestor) > 0)
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+							else if (isReadyTimer(returnOldest(requestor), requestor) == 0)
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
 							
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor]:tempLatency; 
 							temp_timer[requestor] = 0;
@@ -888,11 +936,11 @@ namespace MCsim
 						if (reqNotEmpty(requestor))
 						{
 
-							if (return_oldest(requestor)->busPacketType == RD)
+							if (returnOldest(requestor)->busPacketType == RD)
 							{
 								if (cmd == NULL)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -901,12 +949,12 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -915,12 +963,12 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -929,29 +977,29 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
@@ -959,11 +1007,11 @@ namespace MCsim
 									temp_timer[requestor] = tRL + tBUS;
 								}
 							}
-							else if (return_oldest(requestor)->busPacketType == WR)
+							else if (returnOldest(requestor)->busPacketType == WR)
 							{
 								if (cmd == NULL)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -972,12 +1020,12 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -986,12 +1034,12 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										if (CAStimer == 0)
 											temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1000,29 +1048,29 @@ namespace MCsim
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 								{
-									if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
 										temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 									}
 									else
 									{
-										temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+										temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 									}
 								}
 								else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
@@ -1034,7 +1082,7 @@ namespace MCsim
 					}
 					else if (req_open[requestor] == false)
 					{
-						if (return_oldest(requestor)->busPacketType == PRE)
+						if (returnOldest(requestor)->busPacketType == PRE)
 						{
 							if (cmd != NULL)
 							{
@@ -1043,13 +1091,13 @@ namespace MCsim
 									if (cmd->busPacketType == RD)
 									{
 										req_open[requestor] = false;
-										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+										temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 									if (cmd->busPacketType == WR)
 									{
 										req_open[requestor] = false;
-										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) +
+										temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) +
 																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 									else
@@ -1061,25 +1109,25 @@ namespace MCsim
 								else
 								{
 									req_open[requestor] = false;
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else
 							{
 								req_open[requestor] = false;
-								if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+								if (isReadyTimer(returnOldest(requestor), requestor) > 0)
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								else if (isReadyTimer(returnOldest(requestor), requestor) == 0)
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
 							}
 						}
-						else if (return_oldest(requestor)->busPacketType == ACT)
+						else if (returnOldest(requestor)->busPacketType == ACT)
 						{
 							if (cmd != NULL)
 							{
 								if (requestor != cmd->requestorID)
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 								else
 								{
@@ -1088,14 +1136,14 @@ namespace MCsim
 							}
 							else
 							{
-								temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 							}
 						}
-						else if (return_oldest(requestor)->busPacketType == RD)
+						else if (returnOldest(requestor)->busPacketType == RD)
 						{
 							if (cmd == NULL)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1104,12 +1152,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1119,12 +1167,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1133,29 +1181,29 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
@@ -1164,11 +1212,11 @@ namespace MCsim
 							}
 						}
 
-						else if (return_oldest(requestor)->busPacketType == WR)
+						else if (returnOldest(requestor)->busPacketType == WR)
 						{
 							if (cmd == NULL)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1177,12 +1225,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1191,12 +1239,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1205,29 +1253,29 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tRTW + front_has_rd * tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
@@ -1244,12 +1292,12 @@ namespace MCsim
 					{
 
 						req_statues_flag[requestor] = true;
-						if (return_oldest(requestor)->busPacketType == RD)
+						if (returnOldest(requestor)->busPacketType == RD)
 						{
 							req_open[requestor] = true;
 							if (cmd == NULL)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1258,12 +1306,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1272,12 +1320,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + front_has_rd * tCCD + tRL + tBUS;
@@ -1286,29 +1334,29 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tWtoR + front_has_rd * tCCD + tRL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID == requestor)
@@ -1316,12 +1364,12 @@ namespace MCsim
 								temp_timer[requestor] = tRL + tBUS;
 							}
 						}
-						else if (return_oldest(requestor)->busPacketType == WR)
+						else if (returnOldest(requestor)->busPacketType == WR)
 						{
 							req_open[requestor] = true;
 							if (cmd == NULL)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1330,12 +1378,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == PRE && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1344,12 +1392,12 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == ACT && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									if (CAStimer == 0)
 										temp_timer[requestor] = 1 + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
@@ -1358,29 +1406,29 @@ namespace MCsim
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == RD && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tRTW + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID != requestor)
 							{
-								if (isReadyTimer(return_oldest(requestor), requestor) <= 1)
+								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
 									temp_timer[requestor] = tCCD + (REQ_count - 1) * tCCD + tRTW + tWL + tBUS;
 								}
 								else
 								{
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + (REQ_count - 1) * tCCD + tRTW + 1 + tWL + tBUS;
 								}
 							}
 							else if (cmd->busPacketType == WR && cmd->requestorID == requestor)
@@ -1388,7 +1436,7 @@ namespace MCsim
 								temp_timer[requestor] = tWL + tBUS;
 							}
 						}
-						else if (return_oldest(requestor)->busPacketType == PRE) // done modifications
+						else if (returnOldest(requestor)->busPacketType == PRE) // done modifications
 						{
 							if (cmd != NULL)
 							{
@@ -1397,13 +1445,13 @@ namespace MCsim
 									if (cmd->busPacketType == RD)
 									{
 										req_open[requestor] = false;
-										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tRTP) +
+										temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 																LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 									if (cmd->busPacketType == WR)
 									{
 										req_open[requestor] = false;
-										temp_timer[requestor] = max(isReadyTimer(return_oldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+										temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 									}
 									else
 									{
@@ -1414,16 +1462,16 @@ namespace MCsim
 								else
 								{
 									req_open[requestor] = false;
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								}
 							}
 							else
 							{
 								req_open[requestor] = false;
-								if (isReadyTimer(return_oldest(requestor), requestor) > 0)
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
-								else if (isReadyTimer(return_oldest(requestor), requestor) == 0)
-									temp_timer[requestor] = isReadyTimer(return_oldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
+								if (isReadyTimer(returnOldest(requestor), requestor) > 0)
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
+								else if (isReadyTimer(returnOldest(requestor), requestor) == 0)
+									temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + 1 + tRL + tBUS;
 							}
 						}
 					}
@@ -1717,7 +1765,7 @@ namespace MCsim
 
 					if (WCLator(index, scheduledCommand_HPA) >= service_deadline[index])
 					{
-						//cout<<"-----------------------------------------SWITCH TO RTA-------------------------------------------- Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
+						cout<<"-----------------------------------------SWITCH TO RTA-------------------------------------------- Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
 						suspect_requestor = index;
 						suspect_flag = true;
 						mode = "RTA";
@@ -1733,7 +1781,7 @@ namespace MCsim
 
 					if (WCLator(index, scheduledCommand_HPA) < service_deadline[index])
 					{
-						//cout<<"-----------------------------------------SWITCH TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
+						cout<<"-----------------------------------------SWITCH TO RTA--------------------------------------------Becaus of "<<index<<" latency "<<WCLator(index,scheduledCommand_HPA)<<endl;
 						mode = "HPA";
 					}
 					else
@@ -1820,7 +1868,7 @@ namespace MCsim
 							isServed = servedFlags[commandRegisters[index].second];
 							if (isServed == false && checkCommand->busPacketType == roundType && !(isBlocked(checkCommand)))
 							{
-								if (checkCommand->address == return_oldest(checkCommand->requestorID)->address && checkCommand->busPacketType == return_oldest(checkCommand->requestorID)->busPacketType)
+								if (checkCommand->address == returnOldest(checkCommand->requestorID)->address && checkCommand->busPacketType == returnOldest(checkCommand->requestorID)->busPacketType)
 								{
 
 									CAS_remain = true;
@@ -1829,7 +1877,7 @@ namespace MCsim
 							}
 							else if (isServed == false && checkCommand->busPacketType != roundType)
 							{
-								if (checkCommand->address == return_oldest(checkCommand->requestorID)->address && checkCommand->busPacketType == return_oldest(checkCommand->requestorID)->busPacketType)
+								if (checkCommand->address == returnOldest(checkCommand->requestorID)->address && checkCommand->busPacketType == returnOldest(checkCommand->requestorID)->busPacketType)
 								{
 									switch_expected = true;
 								}
@@ -1894,7 +1942,7 @@ namespace MCsim
 										{
 											if (isIssuable(checkCommand) && !(isBlocked(checkCommand)))
 											{
-												if (checkCommand->address == return_oldest(checkCommand->requestorID)->address && checkCommand->busPacketType == return_oldest(checkCommand->requestorID)->busPacketType)
+												if (checkCommand->address == returnOldest(checkCommand->requestorID)->address && checkCommand->busPacketType == returnOldest(checkCommand->requestorID)->busPacketType)
 												{
 													if (active_shared_exist == false || !(isShared(checkCommand->bank)))
 													{
@@ -2096,7 +2144,7 @@ namespace MCsim
 
 						requestQueues_local[0]->updateRowTable(scheduledCommand_HPA->rank, scheduledCommand_HPA->bank, scheduledCommand_HPA->row);
 
-						if (return_oldest(scheduledCommand_HPA->requestorID)->busPacketType == scheduledCommand_HPA->busPacketType && return_oldest(scheduledCommand_HPA->requestorID)->address == scheduledCommand_HPA->address)
+						if (returnOldest(scheduledCommand_HPA->requestorID)->busPacketType == scheduledCommand_HPA->busPacketType && returnOldest(scheduledCommand_HPA->requestorID)->address == scheduledCommand_HPA->address)
 						{
 							wcl = clock - deadline_track[scheduledCommand_HPA->requestorID];
 
@@ -2152,7 +2200,7 @@ namespace MCsim
 					if (scheduledCommand_RTA->busPacketType == RD || scheduledCommand_RTA->busPacketType == WR)
 					{
 
-						if (return_oldest(scheduledCommand_RTA->requestorID)->busPacketType == scheduledCommand_RTA->busPacketType && return_oldest(scheduledCommand_RTA->requestorID)->address == scheduledCommand_RTA->address)
+						if (returnOldest(scheduledCommand_RTA->requestorID)->busPacketType == scheduledCommand_RTA->busPacketType && returnOldest(scheduledCommand_RTA->requestorID)->address == scheduledCommand_RTA->address)
 						{
 							for (unsigned int h = 0; h < Order.size(); h++)
 							{

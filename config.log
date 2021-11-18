@@ -1,4 +1,4 @@
-file /home/rmirosan/MCSIMULATOR/RTAS-2021/DDR-Duetto-Not-Started-50%/SConstruct,line 51:
+file /home/rmirosan/MCSIMULATOR/git_DuoMC/New-Git-MACsim-MCsim-Duetto/MACsim-MCsim-Duetto/SConstruct,line 51:
 	Configure(confdir = .sconf_temp)
 scons: Configure: Checking for c++0x conformance...
 scons: Configure: ".sconf_temp/conftest_0.cpp" is up to date.

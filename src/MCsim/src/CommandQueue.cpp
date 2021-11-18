@@ -216,6 +216,7 @@ void CommandQueue::removeCommand() // Remove a cmd from the general buffers (hrt
 }
 BusPacket* CommandQueue::getRequestorCommand_position(unsigned int index, unsigned int p, bool mode) // Get a cmd from a particular requestor cmd buffer
 {
+	
 	if(!mode)
 	{
 		return requestorBuffer[requestorMap[index]].at(p);

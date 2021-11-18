@@ -3,10 +3,6 @@
   Please refer to INSTALL file
 
 
-== How to run MacSim ==
-  cd bin
-  ./macsim
-
   However, you need to have params.in and trace_file_list files in the same directory
   
   
@@ -17,3 +13,9 @@
   Gprof version
     ./build.py -p
 
+./build.py --clean
+./build.py --mcsim
+
+== How to run MacSim ==
+  cd bin
+  ./macsim
