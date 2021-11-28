@@ -43,9 +43,6 @@
 using namespace MCsim; 
 
 
-
-
-//MH: To support multi-Requestors Scheduling
 MultiChannelMemorySystem::MultiChannelMemorySystem(unsigned int numberRequestors_, const string &systemIniFilename_, const string &deviceGene_, const string &deviceSpeed_, const string &deviceSize_, unsigned int channels_, unsigned int ranks_)
 	:numberRequestors(numberRequestors_),
 	systemIniFilename(systemIniFilename_),
@@ -294,7 +291,6 @@ void MultiChannelMemorySystem::RegisterCallbacks(
 namespace MCsim {
 
 
-//MH: To support multi-Requestors Scheduling
 
 MultiChannelMemorySystem *getMemorySystemInstance(unsigned int numberRequestors, const string &systemIniFilename, const string &deviceGene,  const string &deviceSpeed, const string &deviceSize, unsigned int channels, unsigned int ranks)
 {

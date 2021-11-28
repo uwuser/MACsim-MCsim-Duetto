@@ -60,7 +60,7 @@ namespace MCsim
 		BusPacket* scheduledCommand_RTA;
 		BusPacket* oldest_1;
 		BusPacket* oldest_2;
-		BusPacket* oldest_3;
+		BusPacket* oldestTemp;
 		BusPacket* checkCommand;
 		BusPacket* tem_wc_cmd;
 		BusPacket* checkCommand_temp_1;

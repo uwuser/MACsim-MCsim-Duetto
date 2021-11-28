@@ -25,12 +25,20 @@ namespace MCsim
 			unsigned col = request->col;
 			unsigned sa = request->subArray;
 
+			/**				
+				The command should be generated based on the type of the request and 
+				state of the bank.
+				@param mode defines if the command should be generated for RTA or HPA.							
+			*/
 			if (!mode)
 			{
-
+				/**				
+					DueMC command generator only pushes the commands when the particular command 
+					queue is empty. But note that the queue structure is per bank per requestor. 
+					Therefore for each pair of requestor and bank, there exists a command queues for HP.  											
+				*/
 				if (commandQueue[bank]->getRequestorSize(id, false) == 0)
 				{
-
 					if (!open)
 					{
 						commandBuffer.push(new BusPacket(PRE, id, address, col, row, bank, rank, sa, NULL, 0));
@@ -43,17 +51,19 @@ namespace MCsim
 				}
 				else if (commandQueue[bank]->getRequestorSize(id, false) > 0)
 				{
-
 					return false;
 				}
 				return true;
 			}
 			else
 			{
-
+				/**				
+					DueMC command generator only pushes the commands when the particular command 
+					queue is empty. But note that the queue structure is per bank per requestor. 
+					Therefore for each pair of requestor and bank, there exists a command queues for RT.  											
+				*/
 				if (commandQueue_RT[bank]->getRequestorSize(id, true) == 0)
 				{
-
 					if (!open)
 					{
 						commandBuffer_RT.push(new BusPacket(PRE, id, address, col, row, bank, rank, sa, NULL, 0));
@@ -66,7 +76,6 @@ namespace MCsim
 				}
 				else if (commandQueue_RT[bank]->getRequestorSize(id, true) > 0)
 				{
-
 					return false;
 				}
 				return true;

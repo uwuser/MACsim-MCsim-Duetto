@@ -285,7 +285,7 @@ dram_controller_c::dram_controller_c(macsim_c* simBase)
   m_pending_request = new list<mem_req_s*>;
 
   dramsim_instance = getMemorySystemInstance(
-      // MH: this first one is for RT controllers 
+      // RM: this first one is for RT controllers 
       num_cores,
       "src/DRAMSim2/ini/DDR3_micron_32M_8B_x4_sg15.ini", 
       "src/DRAMSim2/system.ini.example", 
@@ -300,7 +300,7 @@ dram_controller_c::dram_controller_c(macsim_c* simBase)
   m_pending_request = new list<mem_req_s*>;
 
   mcsim_instance = getMemorySystemInstance(
-      // MH: this first one is for RT controllers 
+      // RM: this first one is for RT controllers 
       num_cores,
       "../src/MCsim/system/DUET/DUET.ini", //this should be parameterized 
       "DDR3", 

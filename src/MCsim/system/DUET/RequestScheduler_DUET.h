@@ -22,12 +22,22 @@ namespace MCsim
 
 		void requestSchedule()
 		{
+			/**
+				scheduledRequest_HP is the scheduled request by HPA.
+				scheduledRequest_RT is the scheduled request by RTA.				
+				There is actually no scheduling here meaning that 
+				we only put the requests to specific queues for the 
+				command scheduler to pick. 
+			*/
 			scheduledRequest_HP = NULL;
 			scheduledRequest_RT = NULL;
 
+			/**				
+				Find scheduledRequest_HP request using cheduleFR_BACKEND.
+				This function buffers a ready request.			
+			*/
 			for (size_t index = 0; index < requestQueue.size(); index++)
 			{
-
 				if (requestQueue[index]->isPerRequestor())
 				{
 					if (requestQueue[index]->getQueueSize() > 0)
@@ -37,10 +47,7 @@ namespace MCsim
 							scheduledRequest_HP = NULL;
 							if (requestQueue[index]->getSize(true, num) > 0)
 							{
-								scheduledRequest_HP = scheduleFR_BACKEND(index, num);
-								if (scheduledRequest_HP != NULL)
-								{
-								}
+								scheduledRequest_HP = scheduleFR_BACKEND(index, num);								
 							}
 						}
 					}
@@ -48,6 +55,10 @@ namespace MCsim
 				}
 			}
 
+			/**				
+				Find scheduledRequest_RT request.
+				This request essentially is the oldest request.			
+			*/
 			for (size_t index = 0; index < requestQueue.size(); index++)
 			{
 				if (requestQueue[index]->isPerRequestor())

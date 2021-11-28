@@ -30,10 +30,7 @@ MemoryDevice::~MemoryDevice()
 {
 	commandTrace.close();
 	dataCycles.clear();
-	memoryArray.clear();
-	// for(auto it=pendingReadData.begin(); it!=pendingReadData.end(); it++) {
-	// 	delete (*it);
-	// }
+	memoryArray.clear();	
 	pendingReadData.clear();
 }
 
@@ -67,7 +64,6 @@ unsigned long MemoryDevice::get_Column()
 }
 
 void MemoryDevice::update() {
-	// cout<<"MH: Memory Device update and pendingReadData.empty()="<<pendingReadData.empty()<<endl;
 	if(!pendingReadData.empty()) {
 		for(unsigned int index=0; index<dataCycles.size(); index++) {
 			if(dataCycles[index]>0) {
@@ -96,20 +92,15 @@ void MemoryDevice::update() {
 			postBuffer.erase(postBuffer.begin());
 		}
 	}
-	// MH: now this is done by the step function of all simulator objs
 	clockCycle++;
 }
 
 void MemoryDevice::generateData(BusPacket* cmd) {
-	// cout<<"MH: inside genreate Data"<<endl;
 	if(cmd->busPacketType == DATA) {
-		// cout<<"MH: command bus type = DATA"<<endl;
 		updateDataArray(cmd);
 	}
 	else {
-		// cout<<"MH: command type not Data"<<endl;
 		if(cmd->busPacketType == RD || cmd->busPacketType == RDA) {
-			// cout<<"MH: read request push to pending readdata"<<endl;
 			pendingReadData.push_back(new BusPacket(DATA, cmd->requestorID, cmd->address, 0, 0, 0, 0, 0, cmd->data, cmd->arriveTime));
 			dataCycles.push_back(get_constraints("tRL") + get_constraints("tBus"));
 		}

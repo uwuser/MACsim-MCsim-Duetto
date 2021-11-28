@@ -160,7 +160,7 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 			memoryDevice->command_timing(cmd, static_cast<BusPacketType>(type)));
 		}
 		// For the command trace option
-		
+		/*
 		if(cmd->busPacketType == PRE)						
 		{
 			if(cmd->address > 999999){
@@ -198,6 +198,7 @@ void CommandScheduler::sendCommand(BusPacket* cmd, unsigned int index, bool bypa
 			else {
 				cout<<"TRACE-COMMAND:ACT"<<"\t"<<clock<<":"<<"\t\tAddress: "<<cmd->address<<"\t\tBank: "<<cmd->bank<<"\t\tColumn: "<<cmd->column<<"\tRow: "<<cmd->row<<endl;	}								
 		}
+		*/
 		
 		
 		//commandQueue[index]->removeCommand(cmd->requestorID);

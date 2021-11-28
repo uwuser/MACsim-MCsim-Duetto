@@ -15,7 +15,7 @@ namespace MCsim
 		virtual ~CommandGenerator();
 		virtual bool commandGenerate(Request* request, bool open, bool mode) = 0;
 
-			BusPacket* getCommand();
+		BusPacket* getCommand();
 		BusPacket* getCommand_RT();
 		void removeCommand();
 		void removeCommand_RT();
