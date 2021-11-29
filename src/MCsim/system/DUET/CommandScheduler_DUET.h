@@ -189,7 +189,7 @@ namespace MCsim
 		}
 		
 		/**
-			Return true ff there is another oldest request to the same bank.
+			Return true if there is another oldest request to the same bank.
 			@param reqID The requestor ID.			
 		*/
 		bool isBlocked(BusPacket *cmd)
@@ -231,34 +231,37 @@ namespace MCsim
 		{
 			bool order_fix = false;
 
-			for (unsigned int index = 0; index < commandQueue_RT.size(); index++)
+			for (unsigned int num = 0; num < REQ_count; num++)
 			{
-				for (unsigned int num = 0; num < commandQueue_RT[index]->getRequestorIndex(); num++) // For all requestors from "num". getRequestorIndex() gives the number of requestors
+				oldestTemp = NULL;
+				oldestTemp = returnOldest(num);
+
+				if(oldestTemp != NULL) 
 				{
-					if (commandQueue_RT[index]->getRequestorSize(num, true) > 0) // Return the buffer size of the requestor
+					if (commandQueue_RT[oldestTemp->bank]->getRequestorSize(num, true) > 0) // Return the buffer size of the requestor
 					{
 						if (deadline_set_flag[num] == false)
 						{						
 							if (clock != 1)
 							{
-								if (commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == PRE)
+								if (commandQueue_RT[oldestTemp->bank]->getRequestorCommand(num, true)->busPacketType == PRE)
 								{
-									if (commandQueue_RT[index]->getRequestorCommand_position(num, 2, true)->busPacketType == RD)
+									if (commandQueue_RT[oldestTemp->bank]->getRequestorCommand_position(num, 2, true)->busPacketType == RD)
 									{
 										service_deadline[num] = init_deadline_CR;
 									}
-									else if (commandQueue_RT[index]->getRequestorCommand_position(num, 2, true)->busPacketType == WR)
+									else if (commandQueue_RT[oldestTemp->bank]->getRequestorCommand_position(num, 2, true)->busPacketType == WR)
 									{
 										service_deadline[num] = init_deadline_CW;
 									}
 								}
 								else
 								{
-									if (commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == RD)
+									if (commandQueue_RT[oldestTemp->bank]->getRequestorCommand(num, true)->busPacketType == RD)
 									{
 										service_deadline[num] = init_deadline_OR;
 									}
-									else if (commandQueue_RT[index]->getRequestorCommand(num, true)->busPacketType == WR)
+									else if (commandQueue_RT[oldestTemp->bank]->getRequestorCommand(num, true)->busPacketType == WR)
 									{									
 										service_deadline[num] = init_deadline_OW;
 									}
@@ -275,6 +278,7 @@ namespace MCsim
 						}
 					}
 				}
+				
 			}
 			for (unsigned int num = 0; num < REQ_count; num++)
 			{
@@ -998,7 +1002,7 @@ namespace MCsim
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;								
-								if(cmdExistsHPA(PRE, requestor, false))
+								if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1014,7 +1018,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(PRE, requestor, false))
+								if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1030,7 +1034,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(RD, requestor, false))
+								if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1043,7 +1047,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(WR, requestor, false))
+								if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1056,7 +1060,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(RD, requestor, true))
+								if(cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false))
 								{
 									temp_timer[requestor] = tRL + tBUS;
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1078,7 +1082,7 @@ namespace MCsim
 								}
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;								
-								if(cmdExistsHPA(PRE, requestor, false))
+								if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1094,7 +1098,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(ACT, requestor, false))
+								if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1110,7 +1114,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(RD, requestor, false))
+								if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1123,7 +1127,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(WR, requestor, false))
+								if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true))
 								{
 									if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 									{
@@ -1136,7 +1140,7 @@ namespace MCsim
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 									temp_timer[requestor] = 0;
 								}
-								if(cmdExistsHPA(WR, requestor, true))
+								if(cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false))
 								{	
 									temp_timer[requestor] = tWL + tBUS;
 									tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1160,28 +1164,31 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;					
 
-							if(cmdExistsHPA(RD, requestor, true)) 
+							if(cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false)) 
 							{
 								temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 									LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;			
 							}
-							if(cmdExistsHPA(WR, requestor, true)) 
+							if(cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false)) 
 							{
 								temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) +
 									LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;		
 							}
-							if(cmdExistsHPA(ACT, requestor, true) || cmdExistsHPA(PRE, requestor, true)) 
+							if((cmdExistsHPA(ACT, requestor, true) && isReadyTimerCmd(ACT,requestor,false)) || (cmdExistsHPA(PRE, requestor, true) && isReadyTimerCmd(PRE,requestor,false))) 
 							{
 								temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 
 							}
-							if(cmdExistsHPA(RD, requestor, false) || cmdExistsHPA(WR, requestor, false) || cmdExistsHPA(ACT, requestor, false) || cmdExistsHPA(PRE, requestor, false)) 
+							if((cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true)) || 
+							   (cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true)) || 
+							   (cmdExistsHPA(ACT, requestor, false)&& isReadyTimerCmd(ACT,requestor,true)) || 
+							   (cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))) 
 							{
 								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1196,13 +1203,19 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;	
 
-							if(cmdExistsHPA(RD, requestor, false) || cmdExistsHPA(WR, requestor, false) || cmdExistsHPA(ACT, requestor, false) || cmdExistsHPA(PRE, requestor, false)) 
+							if((cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true)) || 
+							   (cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true)) || 
+							   (cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true)) || 
+							   (cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))) 
 							{
 								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 							}
-							if(cmdExistsHPA(RD, requestor, true) || cmdExistsHPA(WR, requestor, true) || cmdExistsHPA(ACT, requestor, true) || cmdExistsHPA(PRE, requestor, true)) 
+							if((cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false)) || 
+							   (cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false)) || 
+							   (cmdExistsHPA(ACT, requestor, true)&& isReadyTimerCmd(ACT,requestor,false)) || 
+							   (cmdExistsHPA(PRE, requestor, true)&& isReadyTimerCmd(PRE,requestor,false))) 
 							{
 								temp_timer[requestor] = tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1225,7 +1238,7 @@ namespace MCsim
 							}
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;	
-							if(cmdExistsHPA(PRE, requestor, false))
+							if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1241,7 +1254,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 							} 
-							if(cmdExistsHPA(ACT, requestor, false))
+							if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1257,7 +1270,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 							}
-							if(cmdExistsHPA(RD, requestor, false))
+							if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1270,7 +1283,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 							}
-							if(cmdExistsHPA(WR, requestor, false))
+							if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1283,7 +1296,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(RD, requestor, true))
+							if(cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false))
 							{
 								temp_timer[requestor] = tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1307,7 +1320,7 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;
 
-							if(cmdExistsHPA(PRE, requestor, false))
+							if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1323,7 +1336,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(ACT, requestor, false))
+							if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1339,7 +1352,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(RD, requestor, false))
+							if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1352,7 +1365,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(WR, requestor, false))
+							if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1365,7 +1378,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(WR, requestor, true))
+							if(cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false))
 							{
 								temp_timer[requestor] = tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1397,7 +1410,7 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;
 
-							if(cmdExistsHPA(PRE, requestor, false))
+							if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1413,7 +1426,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(ACT, requestor, false))
+							if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1429,7 +1442,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(RD, requestor, false)) 
+							if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true)) 
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1442,7 +1455,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}	
-							if(cmdExistsHPA(WR, requestor, false)) 
+							if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true)) 
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1455,7 +1468,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(RD, requestor, true)) 
+							if(cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false)) 
 							{
 								temp_timer[requestor] = tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1480,7 +1493,7 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;
 
-							if(cmdExistsHPA(PRE, requestor, false))
+							if(cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1496,7 +1509,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(ACT, requestor, false))
+							if(cmdExistsHPA(ACT, requestor, false) && isReadyTimerCmd(ACT,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1512,7 +1525,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(RD, requestor, false))
+							if(cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1525,7 +1538,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(WR, requestor, false))
+							if(cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true))
 							{
 								if (isReadyTimer(returnOldest(requestor), requestor) <= 1)
 								{
@@ -1538,7 +1551,7 @@ namespace MCsim
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;
 							}
-							if(cmdExistsHPA(WR, requestor, true))
+							if(cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false))
 							{
 								temp_timer[requestor] = tWL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -1558,27 +1571,31 @@ namespace MCsim
 							tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 							temp_timer[requestor] = 0;
 
-							if(cmdExistsHPA(RD, requestor, true)) 
+							if(cmdExistsHPA(RD, requestor, true) && isReadyTimerCmd(RD,requestor,false)) 
 							{
 								temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tRTP) +
 									LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;			
 							}
-							if(cmdExistsHPA(WR, requestor, true)) 
+							if(cmdExistsHPA(WR, requestor, true) && isReadyTimerCmd(WR,requestor,false)) 
 							{
 								temp_timer[requestor] = max(isReadyTimer(returnOldest(requestor), requestor), tWR) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;		
 							}
-							if(cmdExistsHPA(ACT, requestor, true) || cmdExistsHPA(PRE, requestor, true)) 
+							if((cmdExistsHPA(ACT, requestor, true) && isReadyTimerCmd(ACT,requestor,false)) || 
+							   (cmdExistsHPA(PRE, requestor, true) && isReadyTimerCmd(PRE,requestor,false))) 
 							{
 								temp_timer[requestor] = tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
 								temp_timer[requestor] = 0;	
 
 							}
-							if(cmdExistsHPA(RD, requestor, false) || cmdExistsHPA(WR, requestor, false) || cmdExistsHPA(ACT, requestor, false) || cmdExistsHPA(PRE, requestor, false)) 
+							if((cmdExistsHPA(RD, requestor, false) && isReadyTimerCmd(RD,requestor,true)) || 
+							   (cmdExistsHPA(WR, requestor, false) && isReadyTimerCmd(WR,requestor,true)) || 
+							   (cmdExistsHPA(ACT, requestor, false)&& isReadyTimerCmd(ACT,requestor,true)) || 
+							   (cmdExistsHPA(PRE, requestor, false) && isReadyTimerCmd(PRE,requestor,true))) 
 							{
 								temp_timer[requestor] = isReadyTimer(returnOldest(requestor), requestor) + LPRE[front_has_pre] + tRP + LACT[front_has_act] + tRCD + (front_has_rd - 2) * tCCD + max(tRTW, 2 * tCCD) + tWtoR - 1 + tRL + tBUS;
 								tempLatency = (tempLatency < temp_timer[requestor]) ? temp_timer[requestor] : tempLatency;
@@ -2188,23 +2205,23 @@ namespace MCsim
 					{
 						CInterR = tCCD;
 						CInterW = tRTW;
-						/*
+						///*
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% RTA RD"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-							 */
+						//	 */
 					}
 					else if (scheduledCommand->busPacketType == WR)
 					{
 						CInterR = tWtoR;
 						CInterW = tCCD;
-						/*
+						///*
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% RTA WR"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-							 */
+						//	 */
 					}
-					/*
+					///*
 					else if (scheduledCommand->busPacketType == ACT)
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% RTA ACT"
 							 << "\t" << clock << ":"
@@ -2213,7 +2230,7 @@ namespace MCsim
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% RTA PRE"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-					*/
+					//*/
 					if (scheduledCommand->busPacketType < ACT)
 					{
 						servedFlags[scheduledCommand->bank] = true;
@@ -2238,23 +2255,23 @@ namespace MCsim
 					{
 						CInterR = tCCD;
 						CInterW = tRTW;
-						/*
+						///*
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% HPA RD"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-							 */
+						//	 */
 					}
 					else if (scheduledCommand->busPacketType == WR)
 					{
 						CInterR = tWtoR;
 						CInterW = tCCD;
-						/*
+						///*
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% HPA WR"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-							 */
+						//	 */
 					}
-					/*
+					///*
 					else if (scheduledCommand->busPacketType == ACT)
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% HPA ACT"
 							 << "\t" << clock << ":"
@@ -2263,7 +2280,7 @@ namespace MCsim
 						cout << "%%%%%%%%%%%%%%%%%%%%%%%%% HPA PRE"
 							 << "\t" << clock << ":"
 							 << "\t\tAddress: " << scheduledCommand->address << "\tBank: " << scheduledCommand->bank << "\t\tColumn: " << scheduledCommand->column << "\tRow: " << scheduledCommand->row << endl;
-					*/
+					//*/
 					if (scheduledCommand->busPacketType < ACT)
 					{
 						req_statues_flag[scheduledCommand->requestorID] = false;
@@ -2551,7 +2568,7 @@ namespace MCsim
 				{
 					if (WCLator(index, scheduledCommand_HPA) >= service_deadline[index])
 					{
-						cout << "-----------------------------------------SWITCH TO RTA-------------------------------------------- Because of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
+						//cout << "-----------------------------------------SWITCH TO RTA-------------------------------------------- Because of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
 						suspect_requestor = index;
 						suspect_flag = true;
 						mode = "RTA";
@@ -2565,12 +2582,12 @@ namespace MCsim
 				{
 					if (WCLator(index, scheduledCommand_HPA) < service_deadline[index])
 					{
-						cout << "-----------------------------------------SWITCH TO HPA-------------------------------------------- Because of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
+						//cout << "-----------------------------------------SWITCH TO HPA-------------------------------------------- Because of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
 						mode = "HPA";
 					}
 					else
 					{
-						cout << "-----------------------------------------REMAIN IN RTA-------------------------------------------- Becaus of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
+						//cout << "-----------------------------------------REMAIN IN RTA-------------------------------------------- Becaus of " << index << " latency " << WCLator(index, scheduledCommand_HPA) << endl;
 						mode = "RTA";
 						break;
 					}

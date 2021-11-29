@@ -51,6 +51,7 @@ namespace MCsim
 		// Issue the cmd
 		bool isIssuableRefresh(BusPacket* cmd); 
 		unsigned int isReadyTimer(BusPacket* cmd, unsigned int index);
+		bool isReadyTimerCmd(BusPacketType cmd, unsigned int index, bool mode); 
 		void sendCommand(BusPacket* cmd, unsigned int index, bool bypass);
 		void init_config();
 		void clean_buffers();

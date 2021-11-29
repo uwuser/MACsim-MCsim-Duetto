@@ -141,6 +141,35 @@ unsigned int CommandScheduler::isReadyTimer(BusPacket* cmd, unsigned int index)
 	}
 	return 0;			
 }
+bool CommandScheduler::isReadyTimerCmd(BusPacketType cmd, unsigned int index, bool mode) 
+{
+	if(mode) 
+	{
+		for(unsigned int indexx=0; indexx<commandQueue.size(); indexx++) {
+			if(indexx != index) 
+			{
+				if(cmdQueueTimer.find(index) == cmdQueueTimer.end()) {
+					cmdQueueTimer[index] = map<unsigned int, unsigned int>();
+				}
+				if(cmdQueueTimer[index].find(cmd) != cmdQueueTimer[index].end()) {
+						if(cmdQueueTimer[index][cmd] == 0) 
+							return true;		
+				}			
+			}
+		}	
+		return false;	
+	}
+	else
+	{		
+		if(cmdQueueTimer.find(index) == cmdQueueTimer.end()) {
+			cmdQueueTimer[index] = map<unsigned int, unsigned int>();
+		}
+		if(cmdQueueTimer[index].find(cmd) != cmdQueueTimer[index].end()) {
+				if(cmdQueueTimer[index][cmd] == 0) 
+					return true;		
+		}					
+	}		
+}
 bool CommandScheduler::isIssuable(BusPacket* cmd) // Check if the command is issueable on the channel
 {
 	return memoryDevice->command_check(cmd);

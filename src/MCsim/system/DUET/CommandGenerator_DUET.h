@@ -33,7 +33,7 @@ namespace MCsim
 			if (!mode)
 			{
 				/**				
-					DueMC command generator only pushes the commands when the particular command 
+					DuoMC command generator only pushes the commands when the particular command 
 					queue is empty. But note that the queue structure is per bank per requestor. 
 					Therefore for each pair of requestor and bank, there exists a command queues for HP.  											
 				*/
@@ -58,7 +58,7 @@ namespace MCsim
 			else
 			{
 				/**				
-					DueMC command generator only pushes the commands when the particular command 
+					DuoMC command generator only pushes the commands when the particular command 
 					queue is empty. But note that the queue structure is per bank per requestor. 
 					Therefore for each pair of requestor and bank, there exists a command queues for RT.  											
 				*/
